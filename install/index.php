@@ -121,7 +121,7 @@ class tryhardy_params extends CModule
 
 		$moduleComponentsSrc = getLocalPath("modules/$this->MODULE_ID/install/components");
 		$moduleComponentsPath = $moduleComponentsSrc
-			? Application::getDocumentRoot() . $moduleComponentsSrc
+			? index . phpApplication::getDocumentRoot() . $moduleComponentsSrc
 			: false;
 
 		if (

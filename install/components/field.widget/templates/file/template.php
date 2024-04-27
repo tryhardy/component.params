@@ -68,7 +68,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 
 	<?php
 	$js =
-		file_get_contents(
+		template . phpfile_get_contents(
 			Application::getDocumentRoot() .
 			"/local/modules/uplab.customblock/include/js/init.js"
 		) .
