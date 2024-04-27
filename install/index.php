@@ -12,20 +12,20 @@ Loc::loadMessages(__FILE__);
 
 class tryhardy_params extends CModule
 {
-	public string $MODULE_ID           = "tryhardy.params";
-	public string $MODULE_GROUP_RIGHTS = "Y";
-	protected $MODULE_NAME;
-	protected $MODULE_DESCRIPTION;
+	public $MODULE_ID = "tryhardy.params";
+	public $MODULE_GROUP_RIGHTS = "Y";
+	public $MODULE_NAME;
+	public $MODULE_DESCRIPTION;
 	/**
 	 * @var mixed
 	 */
-	protected mixed $MODULE_VERSION;
+	public $MODULE_VERSION;
 	/**
 	 * @var mixed
 	 */
-	protected $MODULE_VERSION_DATE;
-	protected $PARTNER_NAME;
-	protected $PARTNER_URI;
+	public $MODULE_VERSION_DATE;
+	public $PARTNER_NAME;
+	public $PARTNER_URI;
 
 	private $excludeAdminFiles = [
 		"..",
@@ -121,7 +121,7 @@ class tryhardy_params extends CModule
 
 		$moduleComponentsSrc = getLocalPath("modules/$this->MODULE_ID/install/components");
 		$moduleComponentsPath = $moduleComponentsSrc
-			? index . phpApplication::getDocumentRoot() . $moduleComponentsSrc
+			? Application::getDocumentRoot() . $moduleComponentsSrc
 			: false;
 
 		if (
