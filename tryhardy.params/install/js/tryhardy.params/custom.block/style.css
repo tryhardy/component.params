@@ -1,0 +1,59 @@
+.customblock-block-wrapper label {
+    width: 100%;
+}
+.customblock-block-wrapper label p{
+    margin-bottom:5px;
+}
+.customblock-block-wrapper label.customblock-block-label {
+    display:block;
+    width: 100%;
+    margin-bottom:15px;
+}
+.customblock-block-wrapper textarea {
+    min-width: 87%;
+    min-height: 100px;
+}
+
+.customblock-block-wrapper select {
+    width: 87%;
+}
+
+.customblock-block-wrapper input {
+    min-width: 85%;
+}
+
+.customblock-featuresblock-wrapper select {
+    width: max-content;
+}
+.customblock-block-wrapper label.customblock-block-checkbox {
+    display: flex;
+}
+.customblock-block-checkbox label {
+    margin-right:15px;
+    width: fit-content;
+}
+.customblock-block-outer {
+    margin-bottom: 15px;
+}
+.customblock-block-wrapper .file-select-row {
+    display: flex;
+    width: 90%;
+}
+
+.customblock-block-wrapper .file-select-row {
+    max-width: 60px;
+}
+.customblock-block-wrapper .file-select-row.file-template {
+    max-width: 100%;
+}
+.customblock-block-wrapper .file-select-row__actions {
+    margin-left: 15px;
+}
+.customblock-block-outer:not(:first-child) {
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid #c7c7c7;
+}
+.bxcompprop-cont-table-l {
+    vertical-align: top !important;
+}
