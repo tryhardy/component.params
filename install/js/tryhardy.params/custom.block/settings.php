@@ -1,5 +1,4 @@
 <?php
-
 use Tryhardy\Params\Common\Constants;
 use Tryhardy\Params\Fields\CheckboxField;
 use Tryhardy\Params\Fields\FieldsCollection;
@@ -17,9 +16,12 @@ $sDirName = dirname(pathinfo(__FILE__, PATHINFO_DIRNAME));
 $sPath = substr($sDirName, strlen($_SERVER['DOCUMENT_ROOT']));
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
-if (!check_bitrix_sessid())  die('Wrong sessid');
+//if (!check_bitrix_sessid())  die('Wrong sessid');
 if (!$request->isAjaxRequest()) die('Only for ajax requests');
 if (!$_REQUEST['ID']) die('Wrong ID');
+if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+    die('Module "tryhardy.params" is not installed');
+}
 
 $PROPERTY_ID = (string) $_REQUEST['PROPERTY_ID'];
 $ID = (string) $_REQUEST['ID'];
@@ -58,9 +60,11 @@ if ($options['data']) {
 function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
 {
     global $APPLICATION;
+    ?>
 
-    $html = "<div class=\"customblock-block-outer outer$ID\">";
-    foreach($object as $element) {
+    <div class="customblock-block-outer outer<?=$ID?>">
+
+    <?php foreach($object as $element) {
         $isCheckbox = false;
         $template = '';
         $params = [
@@ -92,15 +96,13 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
 		    default:
 			    break;
 	    }
-
-        $html .= "<label class=\"customblock-block-label " . ($isCheckbox ? "customblock-block-checkbox" : "") . "\">";
-
-	    if($element->getLabel() && !$isCheckbox) {
-            $html = "<p>".$element->getLabel()."</p>";
-        }
-
-	    ob_start();
         ?>
+
+        <label class="customblock-block-label <?=($isCheckbox ? "customblock-block-checkbox" : "")?>">
+
+        <?php if($element->getLabel() && !$isCheckbox):?>
+            <p><?=$element->getLabel()?></p>
+        <?php endif;?>
 
         <?php $APPLICATION->IncludeComponent(
 		    'tryhardy.params:field.widget',
@@ -109,32 +111,33 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
 	    ); ?>
 
         <?php
-	    $htmlContent = ob_get_clean();
-	    $html .= $htmlContent;
+	    if($element->getLabel() && $isCheckbox):?>
+            <p><?=$element->getLabel()?></p>
+	    <?php endif;?>
 
-	    if($element->getLabel() && $isCheckbox) {
-		    $html = "<p>".$element->getLabel()."</p>";
-	    }
-
-        $html .= "</label>";
+        </label>
+        <?php
     }
-
-    $html .= "</div>";
-
-    return $html;
+    ?>
+    </div>
+    <?php
 }
-
-\Bitrix\Main\Page\Asset::getInstance()->addCss("/bitrix/js/".Constants::MODULE_ID."/custom.block/style.css");
 ?>
+
+<link rel="stylesheet" href="<?="/bitrix/js/".Constants::MODULE_ID."/custom.block/style.css"?>" type="text/css">
 <div class="customblock-block-wrapper wrapper<?=$ID?>">
     <div class="customblock-block-items items<?=$ID?>">
-        <?php if ($_REQUEST['ACTION'] === 'clone') $APPLICATION->RestartBuffer();?>
-            <?= showCustomParamsBlock($ID, $object, $firstElement, $PROPERTY_ID, $NUMBER); ?>
-	    <?php if ($_REQUEST['ACTION'] === 'clone') die();?>
+
+        <?php if ($_REQUEST['ACTION'] == 'clone') $APPLICATION->RestartBuffer();?>
+            <?php showCustomParamsBlock($ID, $object, $firstElement, $PROPERTY_ID, $NUMBER);?>
+	    <?php if ($_REQUEST['ACTION'] == 'clone') die();?>
 
         <?php if(is_array($arData) && count($arData) > 0):?>
             <?php foreach($arData as $i => $data):?>
-		        <?= showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER); ?>
+                <?php
+                $NUMBER = $i;
+		        showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER);
+                ?>
             <?php endforeach;?>
         <?php endif;?>
     </div>

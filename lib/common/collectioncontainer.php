@@ -29,10 +29,8 @@ abstract class CollectionContainer extends Base implements CollectionContainerIn
 			}
 		}
 		catch (\Exception $e) {
-			echo "<pre>";
-			print_r($e->getMessage());
-			print_r($e->getTraceAsString());
-			echo "</pre>";
+			echo $e->getMessage();
+			die();
 		}
 	}
 

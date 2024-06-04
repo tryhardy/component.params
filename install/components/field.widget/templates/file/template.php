@@ -68,7 +68,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 
 	<?php
 	$js =
-		template . phpfile_get_contents(
+		file_get_contents(
 			Application::getDocumentRoot() .
 			"/local/modules/uplab.customblock/include/js/init.js"
 		) .
@@ -84,7 +84,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 <div class="file-select-row file-template">
 	<!--suppress HtmlFormInputWithoutLabel_File -->
 	<input type="text"
-		<?= $arResult["ID_ATTR"] ?>
+		<?= $arResult["ID"] ?>
 		<?= $arResult["DISABLED_ATTR"] ?>
 		<?= $arResult["NAME_ATTR"] ?>
 		<?= $arResult["VALUE_ATTR"] ?>

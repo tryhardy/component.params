@@ -91,7 +91,7 @@ class CIblockComponentParamsFieldWidget extends CBitrixComponent
 
 			$this->prepareResult();
 
-			// $this->includeComponentTemplate();
+			$this->includeComponentTemplate();
 
 			$this->executeEpilogue();
 

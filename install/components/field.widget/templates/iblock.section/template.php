@@ -24,32 +24,34 @@ if ($arParams["DISABLED"] !== "Y") {
 		->getUri();
 }
 
-function buildAdminSectionLink(int $id, $iblock = 0): string
-{
-	if ($id <= 0) {
-		return '';
-	}
-	if (!Loader::includeModule('iblock')) {
-		return '';
-	}
-	$iblock = (int)$iblock;
-	if (empty($iblock)) {
-		$res = \CIBlockElement::GetList([], ['ID' => $id], false, ['IBLOCK_ID', 'ID']);
+if (!function_exists('buildAdminSectionLink')) {
+	function buildAdminSectionLink(int $id, $iblock = 0): string
+	{
+		if ($id <= 0) {
+			return '';
+		}
+		if (!\Bitrix\Main\Loader::includeModule('iblock')) {
+			return '';
+		}
+		$iblock = (int)$iblock;
+		if (empty($iblock)) {
+			$res = \CIBlockElement::GetList([], ['ID' => $id], false, ['IBLOCK_ID', 'ID']);
+			if ($item = $res->Fetch()) {
+				$iblock = $item['IBLOCK_ID'];
+			} else {
+				return '';
+			}
+		}
+
+		$res = \CIBlock::GetByID($iblock);
 		if ($item = $res->Fetch()) {
-			$iblock = $item['IBLOCK_ID'];
+			$type = $item['IBLOCK_TYPE_ID'];
 		} else {
 			return '';
 		}
-	}
 
-	$res = \CIBlock::GetByID($iblock);
-	if ($item = $res->Fetch()) {
-		$type = $item['IBLOCK_TYPE_ID'];
-	} else {
-		return '';
+		return "/bitrix/admin/iblock_section_edit.php?IBLOCK_ID={$iblock}&type={$type}&ID={$id}";
 	}
-
-	return "/bitrix/admin/iblock_section_edit.php?IBLOCK_ID={$iblock}&type={$type}&ID={$id}";
 }
 ?>
 

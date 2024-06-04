@@ -13,7 +13,8 @@ class Base
 
 	public function __construct($class = null, $attr = null)
 	{
-		$this->setBaseAttributes($class, $attr);
+		$this->setClass($class ?: '');
+		$this->setAttr($attr ?: '');
 		return $this;
 	}
 

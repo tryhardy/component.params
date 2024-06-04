@@ -8,7 +8,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
  * @global CMain $APPLICATION
  */
 
-$module_id = Constants::MODULE_ID;
+$module_id = "tryhardy.params";
 Loader::includeModule($module_id);
 
 $options = new Tryhardy\Params\Module\Options(__FILE__, [

@@ -38,6 +38,16 @@ class ComponentParams
 		string $refresh = 'N'
 	) : void
 	{
+		if (!is_array($arCurrentValues[$code])) $arCurrentValues[$code] = [];
+
+		if ($code == 'FEATURES') {
+			foreach($arCurrentValues[$code] as $key => &$value) {
+				if (!is_int($key)) {
+					$value = [];
+				}
+			}
+		}
+
 		$params[$code] = [
 			'NAME' => $name,
 			'TYPE' => 'CUSTOM',
@@ -45,7 +55,7 @@ class ComponentParams
 			'JS_EVENT' => 'onOpenEditor',
 			'JS_DATA' => json_encode([
 				'object' => serialize($fieldsCollection),
-				'data' => serialize($arCurrentValues['SECTIONS'])
+				'data' => serialize($arCurrentValues[$code])
 			]),
 			'DEFAULT' => '',
 			'PARENT' => $parent,

@@ -16,7 +16,7 @@ class JsUniversalEditor
         this.jsOptions = this.arParams.data.length > 0 ? JSON.parse(this.arParams.data) : '';
 
         var $this = this;
-        var strUrl = '/bitrix/js/tryhardy.params/custom-block/settings.php' + '?lang=' + this.jsOptions[0];
+        var strUrl = '/bitrix/js/tryhardy.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
 
         BX.ajax.post(
             strUrl,
@@ -171,13 +171,16 @@ class JsUniversalEditor
                 var clone = document.createElement('div');
                 clone.innerHTML = data;
 
-                var inputs = clone.querySelectorAll('input, textarea');
+                var inputs = clone.querySelectorAll('input, textarea, select');
                 if (inputs.length > 0) {
-                    for (var i = 0; i < inputs.length; i++) {
-                        inputs[i].value = '';
-                    }
+                   for (var i = 0; i < inputs.length; i++) {
+                       inputs[i].value = '';
+                   }
                 }
-                parent.appendChild(clone);
+
+                var currentData = clone.querySelector($this.itemClass);
+
+                parent.appendChild(currentData);
                 $this.__bindEventsOnInput($this.arParams.oCont);
             }
         )
