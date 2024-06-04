@@ -59,3 +59,111 @@ if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 
 ?>
 ```
+
+### Тег \<textarea\>\<\/textarea\>
+```php
+//в файле .parameters.php шаблона компонента
+use \Tryhardy\Params\Fields;
+
+/**
+ * @global  CMain    $APPLICATION
+ * @var     array    $arParams
+ * @var     array    $arCurrentValues
+ * @var     array    $arResult
+ */
+
+if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+    $сollection = new Fields\FieldsCollection();
+    
+    //<textarea name="description"></textarea>
+    $textareaField = (new Fields\TextareaField(name: "description"))->setLabel("Описание");
+    
+    //Добавляем получившийся <textarea> в коллекцию полей
+    $сollection->add($textareaField);
+    
+    //Добавляем получившуюся коллекцию полей в параметры компонента
+    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "DESCRIPTION_BLOCK",
+        name: "Заголовок с описанием:",
+        parent: "ADDITIONAL_PARAMETERS",
+        multiple: "Y",
+        refresh: "N"
+    );
+    
+}
+```
+
+### Вывод поля выбора элемента инфоблока
+```php
+//в файле .parameters.php шаблона компонента
+use \Tryhardy\Params\Fields;
+
+/**
+ * @global  CMain    $APPLICATION
+ * @var     array    $arParams
+ * @var     array    $arCurrentValues
+ * @var     array    $arResult
+ */
+
+if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+    $сollection = new Fields\FieldsCollection();
+    
+    //<textarea name="description"></textarea>
+    $textareaField = (new Fields\IblockField(iblockId: 10, name: "element"))->setLabel("Элемент инфоблока");
+    
+    //Добавляем получившийся <textarea> в коллекцию полей
+    $сollection->add($textareaField);
+    
+    //Добавляем получившуюся коллекцию полей в параметры компонента
+    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "ELEMENTS_IBLOCK",
+        name: "Элементы инфоблока",
+        parent: "ADDITIONAL_PARAMETERS",
+        multiple: "Y",
+        refresh: "N"
+    );
+    
+}
+```
+
+### Вывод поля выбора раздела инфоблока
+```php
+//в файле .parameters.php шаблона компонента
+use \Tryhardy\Params\Fields;
+
+/**
+ * @global  CMain    $APPLICATION
+ * @var     array    $arParams
+ * @var     array    $arCurrentValues
+ * @var     array    $arResult
+ */
+
+if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+    $сollection = new Fields\FieldsCollection();
+    
+    //<textarea name="description"></textarea>
+    $textareaField = (new Fields\IblockField(iblockId: 10, name: "section"))->setLabel("Раздел инфоблока")->setIsSection();
+    
+    //Добавляем получившийся <textarea> в коллекцию полей
+    $сollection->add($textareaField);
+    
+    //Добавляем получившуюся коллекцию полей в параметры компонента
+    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "SECTIONS_IBLOCK",
+        name: "Разделы инфоблока",
+        parent: "ADDITIONAL_PARAMETERS",
+        multiple: "Y",
+        refresh: "N"
+    );
+    
+}
+```
