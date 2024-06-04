@@ -16,7 +16,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     //Заводим пустую коллекцию полей (в нее будем добавлять селекты, инпуты, радиобаттоны и т.д.)
     $сollection = new Fields\FieldsCollection();
         
@@ -54,7 +54,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     //Заводим пустую коллекцию полей (в нее будем добавлять селекты, инпуты, радиобаттоны и т.д.)
     $сollection = new Fields\FieldsCollection();
     
@@ -106,7 +106,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
     //<textarea name="description"></textarea>
@@ -142,7 +142,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
     $field = (new Fields\IblockField(iblockId: 10, name: "element"))->setLabel("Элемент инфоблока");
@@ -176,7 +176,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
     $field = (new Fields\IblockField(iblockId: 10, name: "section"))->setLabel("Раздел инфоблока")->setIsSection();
@@ -210,7 +210,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
     $field = (new Fields\CheckboxField(name: "agreement"))
