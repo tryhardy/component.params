@@ -3,6 +3,7 @@
 ## Пример использования (множественный блок ссылок):
 ![Пример использования](/images/image_1.png)
 
+## Вывод простого текстового инпута
 ```php
 <?php
 //в файле .parameters.php шаблона компонента
@@ -23,6 +24,39 @@ if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $simpleInputField = (new Fields\Field(name: 'name')->setLabel('Some random label'));
     //Добавляем это поле в коллекцию
     $сollection->add($simpleInputField);
+    
+    //Добавляем получившуюся коллекцию полей в параметры компонента
+    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "LINKS_BLOCK",
+        name: "Ссылки:",
+        parent: "ADDITIONAL_PARAMETERS",
+        multiple: "Y",
+        refresh: "N"
+    );
+}
+
+?>
+```
+
+## Вывод селекта
+```php
+<?php
+//в файле .parameters.php шаблона компонента
+use \Tryhardy\Params\Fields;
+
+/**
+ * @global  CMain    $APPLICATION
+ * @var     array    $arParams
+ * @var     array    $arCurrentValues
+ * @var     array    $arResult
+ */
+
+if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+    //Заводим пустую коллекцию полей (в нее будем добавлять селекты, инпуты, радиобаттоны и т.д.)
+    $сollection = new Fields\FieldsCollection();
     
     //Создаем пустой <select name="{name}"></select>
     $selectField = (new Fields\SelectField(name: 'theme'))->setLabel('Тема');
@@ -49,7 +83,7 @@ if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
-        code: "LINKS_BLOCK",
+        code: "SELECTS_BLOCK",
         name: "Ссылки:",
         parent: "ADDITIONAL_PARAMETERS",
         multiple: "Y",
