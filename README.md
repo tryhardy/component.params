@@ -30,7 +30,7 @@ if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
-        code: "LINKS_BLOCK",
+        code: "INPUTS_BLOCK",
         name: "Ссылки:",
         parent: "ADDITIONAL_PARAMETERS",
         multiple: "Y",
