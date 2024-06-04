@@ -46,14 +46,14 @@ if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
     \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
-	    $arTemplateParameters,
-		$arCurrentValues,
-		fieldsCollection: $сollection,
-		code: "LINKS_BLOCK",
-		name: "Ссылки:",
-		parent: "ADDITIONAL_PARAMETERS",
-		multiple: "Y",
-		refresh: "N"
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "LINKS_BLOCK",
+        name: "Ссылки:",
+        parent: "ADDITIONAL_PARAMETERS",
+        multiple: "Y",
+        refresh: "N"
     );
 }
 
