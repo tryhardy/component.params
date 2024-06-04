@@ -99,7 +99,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
-### Тег \<textarea\>\<\/textarea\>
+### Вывод \<textarea\>\<\/textarea\>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
