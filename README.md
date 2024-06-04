@@ -111,11 +111,9 @@ use \Tryhardy\Params\Fields;
 if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
-    //<textarea name="description"></textarea>
-    $textareaField = (new Fields\IblockField(iblockId: 10, name: "element"))->setLabel("Элемент инфоблока");
+    $field = (new Fields\IblockField(iblockId: 10, name: "element"))->setLabel("Элемент инфоблока");
     
-    //Добавляем получившийся <textarea> в коллекцию полей
-    $сollection->add($textareaField);
+    $сollection->add($field);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
     \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
@@ -147,11 +145,9 @@ use \Tryhardy\Params\Fields;
 if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
-    //<textarea name="description"></textarea>
-    $textareaField = (new Fields\IblockField(iblockId: 10, name: "section"))->setLabel("Раздел инфоблока")->setIsSection();
+    $field = (new Fields\IblockField(iblockId: 10, name: "section"))->setLabel("Раздел инфоблока")->setIsSection();
     
-    //Добавляем получившийся <textarea> в коллекцию полей
-    $сollection->add($textareaField);
+    $сollection->add($field);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
     \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
@@ -160,6 +156,42 @@ if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
         fieldsCollection: $сollection,
         code: "SECTIONS_IBLOCK",
         name: "Разделы инфоблока",
+        parent: "ADDITIONAL_PARAMETERS",
+        multiple: "Y",
+        refresh: "N"
+    );
+    
+}
+```
+
+### Вывод чекбокса
+```php
+//в файле .parameters.php шаблона компонента
+use \Tryhardy\Params\Fields;
+
+/**
+ * @global  CMain    $APPLICATION
+ * @var     array    $arParams
+ * @var     array    $arCurrentValues
+ * @var     array    $arResult
+ */
+
+if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+    $сollection = new Fields\FieldsCollection();
+    
+    $field = (new Fields\CheckboxField(name: "agreement"))
+        ->setLabel("Подпись для чекбокса")
+        ->setChecked(); //Устанавливаем, если нужно, чтобы чекбокс был по умолчанию выбран
+    
+    $сollection->add($field);
+    
+    //Добавляем получившуюся коллекцию полей в параметры компонента
+    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "CHECKBOX_BLOCK",
+        name: "Множественный блок с чекбоксами",
         parent: "ADDITIONAL_PARAMETERS",
         multiple: "Y",
         refresh: "N"
