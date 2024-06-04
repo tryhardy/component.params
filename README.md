@@ -19,7 +19,7 @@ if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     //Заводим пустую коллекцию полей (в нее будем добавлять селекты, инпуты, радиобаттоны и т.д.)
     $сollection = new Fields\FieldsCollection();
         
-    //Простое тектовое поле: <input type="text" name="{name}">
+    //Простое тектовое поле: <input type="text" name="theme">
     $simpleInputField = (new Fields\Field(name: 'name')->setLabel('Some random label'));
     //Добавляем это поле в коллекцию
     $сollection->add($simpleInputField);
