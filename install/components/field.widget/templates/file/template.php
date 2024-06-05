@@ -5,6 +5,7 @@ use Uplab\Core\Helper;
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 	die();
 }
+
 /**
  * @global CMain $APPLICATION
  * @var array    $arParams
@@ -35,64 +36,98 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 
 	<!--suppress ES6ConvertVarToLetConst, ThisExpressionReferencesGlobalObjectJS -->
 	<script>
-		<?php ob_start(); ?>
 
-        UPFIB_loadJs('/bitrix/js/main/file_dialog.js', function () {
-            UPFIB_loadJs('<?= $this->__folder ?>/script.js', function () {
-                window.<?= $openFunctionName ?> = function () {
-                    UPFIB_openFileDialog(<?= str_replace("\"", "'", json_encode($config)) ?>);
-                    var submitFunctionName = '<?= $submitFunctionName ?>';
-                    //console.log(submitFunctionName);
-                }
+        if (typeof(window.loadJs) == "undefined") {
+            window.loadJs = (url, onSuccess = false, onError = false) => {
+                //if (document.querySelector(`script[src='${url}']`)) return;
 
-                window.<?= $submitFunctionName ?> = function (filename, path, site, title, menu) {
-                    UPFIB_submitFileDialog(
-                        '<?= $arResult["ID"] ?>',
-                        filename,
-                        path,
-                        site,
-                        title,
-                        menu
-                    );
-                }
-            })
+                const script = document.createElement('script');
+
+                script.src = url;
+                document.body.append(script);
+
+                script.onload = () => {
+                    if (onSuccess && typeof onSuccess === 'function') onSuccess();
+                };
+            };
+        }
+
+        loadJs('/bitrix/js/main/file_dialog.js', function () {
+            window.openFileDialog = function(event, elementId, config)
+            {
+                event.preventDefault();
+                window.BXFileDialog = window.BXFileDialog || undefined;
+                if (!window.BXFileDialog) return;
+
+                window.oBXFileDialog = new BXFileDialog();
+                // noinspection JSUnresolvedFunction
+                oBXFileDialog.Open(
+                    {
+                        ...{
+                            select: 'F',
+                            operation: 'O',
+                            saveConfig: true,
+                            checkChildren: true,
+                            genThumb: true,
+                            showAddToMenuTab: false,
+                            zIndex: 2500,
+
+                            allowAllFiles: true,
+                            showUploadTab: true,
+                            path: '/upload',
+                            submitFuncName: 'submitFileDialog',
+                            fileFilter: 'jpg,jpeg,gif,png,svg',
+
+                            site: BX.message['SITE_ID'] || 's1',
+                            lang: BX.message['LANGUAGE_ID'] || 'ru',
+                            sessid: BX.message["bitrix_sessid"] || '',
+                        },
+                        ...config
+                    },
+                    config
+                );
+            }
         });
 
-        //console.log(this.tagName);
-        this.tagName === 'IMG' && this.remove();
+        window.<?= $submitFunctionName ?> = function (filename, path, site, title, menu) {
+            window.submitFileDialog(
+                '<?= $arResult["ID"] ?>',
+                filename,
+                path,
+                site,
+                title,
+                menu
+            );
+        }
 
-        // document.querySelectorAll('[data-js-loader-img]').forEach(item => item.remove());
+        window.submitFileDialog = function (elementId, filename, path, site, title, menu) {
+            const inputEl = document.getElementById(elementId);
 
-		<?php $js = trim(ob_get_clean()); ?>
+            path = jsUtils.trim(path);
+            path = path.replace(/\\/ig, '/');
+            path = path.replace(/\/\//ig, '/');
+            if (path.substr(path.length - 1) == '/')
+                path = path.substr(0, path.length - 1);
+            var full = (path + '/' + filename).replace(/\/\//ig, '/');
+            if (path == '')
+                path = '/';
+
+            var arBuckets = [];
+            if (arBuckets[site]) {
+                full = arBuckets[site] + filename;
+                path = arBuckets[site] + path;
+            }
+
+            if ('F' == 'D') name = full;
+
+            inputEl.value = full;
+        };
 	</script>
-
-	<?php
-	$js =
-		file_get_contents(
-			Application::getDocumentRoot() .
-			"/local/modules/uplab.customblock/include/js/init.js"
-		) .
-		$js;
-	?>
-
-	<!--suppress HtmlRequiredAltAttribute -->
-	<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-	     data-js-loader-img
-	     onload="<?= $js ?>">
-<?php endif; ?>
-
-<div class="file-select-row file-template">
-	<!--suppress HtmlFormInputWithoutLabel_File -->
-	<input type="text"
-		<?= $arResult["ID"] ?>
+    <input type="text"
+		<?= $arResult["ID_ATTR"] ?>
 		<?= $arResult["DISABLED_ATTR"] ?>
 		<?= $arResult["NAME_ATTR"] ?>
 		<?= $arResult["VALUE_ATTR"] ?>
-	>
-
-	<div class="file-select-row__actions" <?= $arResult["DISABLED_ATTR"] ?>>
-		<button type="button"
-		        onclick="<?= $openFunctionName ? "{$openFunctionName}();" : "" ?>">...
-		</button>
-	</div>
-</div>
+    >
+    <button onclick="window.openFileDialog(event, '<?=$arResult["ID"]?>', <?=(CUtil::PhpToJSObject($config) ?: CUtil::PhpToJSObject([]))?>);">...</button>
+<?php endif; ?>
