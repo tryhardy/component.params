@@ -254,9 +254,9 @@ use \Tryhardy\Params\Fields;
 if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Картинка для десктопа");
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Картинка для планшета");
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Картинка для мобилки");
+    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Desc)");
+    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Tab)");
+    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Mob)");
     
     $сollection->add($field);
     
@@ -274,3 +274,4 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
+![Пример использования](/images/image_2.png)
