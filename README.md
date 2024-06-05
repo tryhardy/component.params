@@ -238,3 +238,39 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
+
+### Вывод диалогового окна с выбором файла
+```php
+//в файле .parameters.php шаблона компонента
+use \Tryhardy\Params\Fields;
+
+/**
+ * @global  CMain    $APPLICATION
+ * @var     array    $arParams
+ * @var     array    $arCurrentValues
+ * @var     array    $arResult
+ */
+
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+    $сollection = new Fields\FieldsCollection();
+    
+    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Картинка для десктопа");
+    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Картинка для планшета");
+    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Картинка для мобилки");
+    
+    $сollection->add($field);
+    
+    //Добавляем получившуюся коллекцию полей в параметры компонента
+    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "IMAGES_BLOCK",
+        name: "Множественный блок с изображениями",
+        parent: "ADDITIONAL_PARAMETERS",
+        multiple: "Y",
+        refresh: "N"
+    );
+    
+}
+```
