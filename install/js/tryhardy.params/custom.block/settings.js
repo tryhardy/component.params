@@ -26,18 +26,23 @@ class JsUniversalEditor
                 PROPERTY_ID: $this.arParams.propertyID,
                 ID: $this.arParams.oInput.id,
                 sessid: BX.bitrix_sessid(),
-                OPTIONS: arParams.data
+                OPTIONS: arParams.data,
+                REQUEST: arParams.request
             },
             function (data) {
-                $this.arParams.oCont.innerHTML = data;
 
-                var parent = $this.arParams.oCont;
+                if (data) {
+                    $this.arParams.oCont.innerHTML = data;
 
-                // Вешаем события, отслеживающие изменения инпутов
-                $this.__bindEventsOnInput(parent);
+                    var parent = $this.arParams.oCont;
 
-                // Вешаем копирование на кнопку добавления элемента
-                $this.__bindCloning(parent);
+                    // Вешаем события, отслеживающие изменения инпутов
+                    $this.__bindEventsOnInput(parent);
+
+                    // Вешаем копирование на кнопку добавления элемента
+                    $this.__bindCloning(parent);
+                }
+
             }
         )
     }

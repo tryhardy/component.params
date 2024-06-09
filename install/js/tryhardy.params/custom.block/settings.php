@@ -16,7 +16,7 @@ $sDirName = dirname(pathinfo(__FILE__, PATHINFO_DIRNAME));
 $sPath = substr($sDirName, strlen($_SERVER['DOCUMENT_ROOT']));
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
-//if (!check_bitrix_sessid())  die('Wrong sessid');
+if (!check_bitrix_sessid())  die('Wrong sessid');
 if (!$request->isAjaxRequest()) die('Only for ajax requests');
 if (!$_REQUEST['ID']) die('Wrong ID');
 if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
@@ -40,8 +40,13 @@ if (unserialize($options['object']) instanceof FieldsCollection) {
 }
 
 $firstElement = [];
+$arRequest = [];
 $arData = [];
 if ($options['data']) {
+	if (json_decode($options['request'], true)) {
+		$arRequest = json_decode($options['request'], true);
+	}
+
 	//Если приходит массив значений, декодируем
 	if (json_decode($options['data'], true)) {
 		$arData = json_decode($options['data'], true);
@@ -57,6 +62,7 @@ if ($options['data']) {
 	    unset($arData[key($arData)]);
     }
 }
+
 function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
 {
     global $APPLICATION;
@@ -72,6 +78,7 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
             'VALUE' => $data[$element->getName()] ?: '',
             'NAME' => $PROPERTY_ID . '[' . $NUMBER . ']' . '[' . $element->getName() . ']',
             'PLACEHOLDER' => $element->getPlaceholder(),
+            'ATTR' => ' data-bx-comp-prop="true" data-bx-property-id=' . $PROPERTY_ID . '[' . $NUMBER . ']' . '[' . $element->getName() . ']' . ' ',
         ];
 
 	    switch ($element) {
@@ -145,5 +152,54 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
         <input type="button" class="more-btn more-btn<?=$ID?>" value="+">
 	<?php endif;?>
 </div>
+
+<script>
+    function initObserver(observer)
+    {
+        var allFields = element.querySelectorAll('input, textarea, select');
+
+        for (let i = 0; i < allFields.length; i++) {
+            var field = allFields[i];
+            var fieldId = field.name;
+            observer.inputs[fieldId] = field.value;
+        }
+
+        for (let i = 0; i < allFields.length; i++) {
+            allFields[i].addEventListener('input', function (e) {
+                var input = e.target;
+                observer.inputs[input.name] = input.value;
+            })
+
+            allFields[i].addEventListener('change', function (e) {
+                var input = e.target;
+                observer.inputs[input.name] = input.value;
+            })
+        }
+    }
+
+    var element = document.querySelector('.wrapper<?=$ID?>');
+
+    if (element) {
+        if (!window.observer<?=$ID?>) {
+            window.observer<?=$ID?> = {
+                element: element,
+                inputs: {}
+            }
+
+            initObserver(window.observer<?=$ID?>);
+        }
+        else {
+            if (window.observer<?=$ID?>.inputs) {
+                for (key in window.observer<?=$ID?>.inputs) {
+                    var input = document.querySelector('[name="' + key + '"]');
+                    var value = window.observer<?=$ID?>.inputs[key];
+                    if (input) input.value = value;
+                }
+            }
+
+            initObserver(window.observer<?=$ID?>);
+        }
+    }
+</script>
 
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_admin_js.php");

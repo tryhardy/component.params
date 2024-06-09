@@ -114,6 +114,7 @@ class CIblockComponentParamsFieldWidget extends CBitrixComponent
 
 	private function prepareResult(): void
 	{
+		$this->arResult['ATTR'] = $this->arParams['ATTR'] ?? '';
 		$this->arResult["ID"] = "widget_{$this->arParams["AREA_UNIQUE_ID"]}_{$this->arParams["KEY"]}";
 		$this->arResult["ID_ATTR"] = " id=\"{$this->arResult["ID"]}\" ";
 		$this->arResult["NAME_ATTR"] = " name=\"{$this->arParams["NAME"]}\" data-name=\"{$this->arParams["NAME"]}\" ";
