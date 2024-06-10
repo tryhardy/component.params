@@ -142,11 +142,17 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
         <?php if(is_array($arData) && count($arData) > 0):?>
             <?php foreach($arData as $i => $data):?>
                 <?php
-                $NUMBER = $i;
-		        showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER);
+                $emptyArray = array_filter($data, function ($value) {
+	                return ($value !== null && $value !== '');
+                });
+                if (!empty($emptyArray)) {
+	                $NUMBER = $i;
+	                showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER);
+                }
                 ?>
             <?php endforeach;?>
         <?php endif;?>
+
     </div>
 	<?php if ($multiple):?>
         <input type="button" class="more-btn more-btn<?=$ID?>" value="+">
