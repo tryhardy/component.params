@@ -63,6 +63,7 @@ function buildAdminElementLink(int $id, $iblock = 0): string
 			<?= $arResult["DISABLED_ATTR"] ?>
 			<?= $arResult["NAME_ATTR"] ?>
 			<?= $arResult["VALUE_ATTR"] ?>
+			<?= $arResult["PLACEHOLDER_ATTR"] ?>
 		>
 
 		<div class="file-select-row__actions" <?= $arResult["DISABLED_ATTR"] ?>>

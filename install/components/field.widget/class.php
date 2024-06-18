@@ -124,6 +124,8 @@ class CIblockComponentParamsFieldWidget extends CBitrixComponent
 			? " disabled=\"disabled\" "
 			: "";
 		$this->arResult["VALUE"] = $this->arParams["~VALUE"];
+		$this->arResult["PLACEHOLDER"] = $this->arParams['PLACEHOLDER'];
+		$this->arResult["PLACEHOLDER_ATTR"] = " placeholder=\"{$this->arResult["PLACEHOLDER"]}\" ";
 		$this->arResult["VALUE_ATTR"] =
 			' value="' .
 			htmlspecialchars($this->arResult["VALUE"], ENT_COMPAT) .

@@ -16,5 +16,6 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 		<?= $arResult["NAME_ATTR"] ?>
 		value="Y"
 		<?= $arResult["VALUE"] === "Y" ? "checked" : "" ?>
+		<?= $arResult["PLACEHOLDER_ATTR"] ?>
 	>
 </span>

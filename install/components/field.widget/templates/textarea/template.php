@@ -14,5 +14,6 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 		<?= $arResult["ID_ATTR"] ?>
 		<?= $arResult["DISABLED_ATTR"] ?>
 		<?= $arResult["NAME_ATTR"] ?>
+		<?= $arResult["PLACEHOLDER_ATTR"] ?>
 	><?= $arResult["VALUE"] ?></textarea>
 </div>

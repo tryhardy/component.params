@@ -14,6 +14,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
         <?= $arResult["ID_ATTR"] ?>
         <?= $arResult["DISABLED_ATTR"] ?>
         <?= $arResult["NAME_ATTR"] ?>
+	    <?= $arResult["PLACEHOLDER_ATTR"] ?>
     >
 	    <?php foreach ($arParams['OPTIONS'] as $key => $val): ?>
             <option <?=($arResult["VALUE"] == $key) ? 'selected' : ''?> value="<?=$key?>"><?=$val?></option>

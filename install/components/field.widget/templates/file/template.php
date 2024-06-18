@@ -128,6 +128,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 		<?= $arResult["DISABLED_ATTR"] ?>
 		<?= $arResult["NAME_ATTR"] ?>
 		<?= $arResult["VALUE_ATTR"] ?>
+	    <?= $arResult["PLACEHOLDER_ATTR"] ?>
     >
     <button onclick="window.openFileDialog(event, '<?=$arResult["ID"]?>', <?=(CUtil::PhpToJSObject($config) ?: CUtil::PhpToJSObject([]))?>);">...</button>
 <?php endif; ?>
