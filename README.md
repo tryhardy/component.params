@@ -275,3 +275,39 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 ![Пример использования](/images/image_2.png)
+
+
+### Вывод диалогового окна с множественной группой вложенных полей
+```php
+//в файле .parameters.php шаблона компонента
+use \Tryhardy\Params\Fields;
+
+/**
+ * @global  CMain    $APPLICATION
+ * @var     array    $arParams
+ * @var     array    $arCurrentValues
+ * @var     array    $arResult
+ */
+
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+    $сollection = new Fields\FieldsCollection();
+    
+    $fieldsCollection = new FieldsCollection();
+	$fieldsCollection->add((new Field('random_name', 'Заголовок'))->setLabel('Заголовок'));
+	$fieldsCollection->add((new TextareaField('random_descr', 'Описание'))->setLabel('Описание'));
+	$fieldsCollection->add(ComponentParams::getIconsSelectField());
+
+	$groupField = (new GroupFields('groupFields', 'Группа полей'))->setMultiple();
+	$GroupFieldsCollection = new FieldsCollection();
+	$GroupFieldsCollection->add((new Field('link', 'Href'))->setLabel('Href'));
+	$GroupFieldsCollection->add((new Field('text', 'Название ссылки'))->setLabel('Описание'));
+	$GroupFieldsCollection->add(ComponentParams::getIconsSelectField());
+	$GroupFieldsCollection->add((new IblockField((int)$arCurrentValues['IBLOCK_ID'], 'iblock'))->setLabel('Инфоблок'));
+	$groupField->setFields($GroupFieldsCollection);
+	
+	$fieldsCollection->add($groupField);
+
+	ComponentParams::setCustomParams($arTemplateParameters, $arCurrentValues, $fieldsCollection, 'GROUP_FIELDS', multiple: 'Y');
+    
+}
+```

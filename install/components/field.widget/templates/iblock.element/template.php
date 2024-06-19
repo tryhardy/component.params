@@ -2,9 +2,10 @@
 
 use Tryhardy\Params\Helpers\ComponentParams;
 
-if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
-	die();
-}
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_before.php");
+
 /**
  * @global CMain $APPLICATION
  * @var array $arParams
@@ -24,32 +25,33 @@ if ($arParams["DISABLED"] !== "Y") {
 		->getUri();
 }
 
-function buildAdminElementLink(int $id, $iblock = 0): string
-{
-	if ($id <= 0) {
-		return '';
-	}
-	if (!Loader::includeModule('iblock')) {
-		return '';
-	}
-	$iblock = (int)$iblock;
-	if (empty($iblock)) {
-		$res = \CIBlockElement::GetList([], ['ID' => $id], false, ['IBLOCK_ID', 'ID']);
+if (!function_exists('buildAdminElementLink')) {
+	function buildAdminElementLink(int $id, $iblock = 0): string
+	{
+		if ($id <= 0) {
+			return '';
+		}
+		if (!\Bitrix\Main\Loader::includeModule('iblock')) return '';
+        
+		$iblock = (int)$iblock;
+		if (empty($iblock)) {
+			$res = \CIBlockElement::GetList([], ['ID' => $id], false, ['IBLOCK_ID', 'ID']);
+			if ($item = $res->Fetch()) {
+				$iblock = $item['IBLOCK_ID'];
+			} else {
+				return '';
+			}
+		}
+
+		$res = \CIBlock::GetByID($iblock);
 		if ($item = $res->Fetch()) {
-			$iblock = $item['IBLOCK_ID'];
+			$type = $item['IBLOCK_TYPE_ID'];
 		} else {
 			return '';
 		}
-	}
 
-	$res = \CIBlock::GetByID($iblock);
-	if ($item = $res->Fetch()) {
-		$type = $item['IBLOCK_TYPE_ID'];
-	} else {
-		return '';
+		return "/bitrix/admin/iblock_element_edit.php?IBLOCK_ID={$iblock}&type={$type}&ID={$id}";
 	}
-
-	return "/bitrix/admin/iblock_element_edit.php?IBLOCK_ID={$iblock}&type={$type}&ID={$id}";
 }
 ?>
 
@@ -75,16 +77,18 @@ function buildAdminElementLink(int $id, $iblock = 0): string
 	</div>
 	<div style="margin-top: 10px;" id="sp_<?= $arResult["ID"] ?>">
 		<?php
-		if ($arResult["VALUE"] && \Bitrix\Main\Loader::includeModule('iblock')) {
-			$element = CIBlockElement::GetList([], ['ID' => $arResult["VALUE"]], [], ['nTopCount' => 1], ['ID', 'NAME', 'IBLOCK_ID'])->GetNext();
+		$arResult["VALUE"] = (int)$arResult["VALUE"];
 
-			if ($element) {
-				if ($adminElementLink = buildAdminElementLink((int)$element["ID"], (int)$element["IBLOCK_ID"])) {
-					echo "<a href='{$adminElementLink}' target='_blank'>{$element["NAME"]}</a>";
-				} else {
-					echo $element["~NAME"];
-				}
-			}
+		if ($arResult["VALUE"] && \Bitrix\Main\Loader::includeModule('iblock')) {
+			$elementDB = CIBlockElement::GetByID((int)$arResult["VALUE"]);
+
+            if ($element = $elementDB->Fetch()) {
+	            if ($adminElementLink = buildAdminElementLink((int)$element["ID"], (int)$element["IBLOCK_ID"])) {
+		            echo "<a href='{$adminElementLink}' target='_blank'>{$element["NAME"]}</a>";
+	            } else {
+		            echo $element["~NAME"];
+	            }
+            }
 		}
 		?>
 	</div>

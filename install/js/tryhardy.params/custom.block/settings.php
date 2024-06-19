@@ -3,6 +3,7 @@ use Tryhardy\Params\Common\Constants;
 use Tryhardy\Params\Fields\CheckboxField;
 use Tryhardy\Params\Fields\FieldsCollection;
 use Tryhardy\Params\Fields\FileField;
+use Tryhardy\Params\Fields\GroupFields;
 use Tryhardy\Params\Fields\IblockField;
 use Tryhardy\Params\Fields\SelectField;
 use Tryhardy\Params\Fields\TextareaField;
@@ -63,7 +64,7 @@ if ($options['data']) {
     }
 }
 
-function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
+function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 0, string $NAME = '')
 {
     global $APPLICATION;
     ?>
@@ -71,14 +72,23 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
     <div class="customblock-block-outer outer<?=$ID?>">
 
     <?php foreach($object as $element) {
+        $isRecursive = $element instanceof GroupFields;
         $isCheckbox = false;
         $template = '';
+
+        if (!$NAME) {
+            $name = $PROPERTY_ID . '[' . $NUMBER . ']' . '[' . $element->getName() . ']';
+        }
+        else {
+            $name = $NAME . '[' . $NUMBER . ']' . '[' . $element->getName() . ']';
+        }
+
         $params = [
             'EDIT_MODE' => 'Y',
             'VALUE' => $data[$element->getName()] ?: '',
-            'NAME' => $PROPERTY_ID . '[' . $NUMBER . ']' . '[' . $element->getName() . ']',
+            'NAME' => $name,
             'PLACEHOLDER' => $element->getPlaceholder(),
-            'ATTR' => ' data-bx-comp-prop="true" data-bx-property-id=' . $PROPERTY_ID . '[' . $NUMBER . ']' . '[' . $element->getName() . ']' . ' ',
+            'ATTR' => ' data-bx-comp-prop="true" data-bx-property-id=' . $name . ' ',
         ];
 
 	    switch ($element) {
@@ -97,6 +107,51 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
 			    $template = $element->getIsSection() ? 'iblock.section' : 'iblock.element';
 			    $params['IBLOCK_ID'] = $element->getIblockId();
 			    break;
+            case $element instanceof GroupFields:?>
+                <?php
+                $groupFieldsData = $data[$element->getName()];
+                $hash = $element->getHash();
+                ?>
+                <div class="group-fields" data-parent="<?=$hash?>" data-name="<?=$name?>">
+                    <label class="group-fields__label customblock-block-label">
+	                    <?php if($element->getLabel()):?><p><?=$element->getLabel()?></p><?php endif;?>
+                        <div class="group-fields__wrapper">
+                            <?php
+                            $n = 0;
+                            if(is_array($groupFieldsData) && count($groupFieldsData) > 0):?>
+                                <?php foreach($groupFieldsData as $groupData):?>
+                                    <?php
+                                    $emptyArray = array_filter($groupData, function ($value) {
+	                                    return ($value !== null && $value !== '');
+                                    });
+                                    if (!empty($emptyArray)) :
+                                        if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
+                                            $APPLICATION->RestartBuffer();
+                                            $n = $NUMBER;
+                                        }
+                                        if ((string) $_REQUEST['NAME']) {
+                                            $name = (string) $_REQUEST['NAME'];
+                                        }
+                                        ?>
+                                        <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
+                                            <?php
+                                            showCustomParamsBlock($ID, $element->getFields(), $groupData, $PROPERTY_ID, $n, $name);
+                                            if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) die();
+                                            $n++;
+                                            ?>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach;?>
+                            <?php endif;?>
+                        </div>
+                    </label>
+	                <?php if ($element->isMultiple()):?>
+                        <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+" style="max-width: 40px;width: 40px;display: block;min-width: fit-content;">
+	                <?endif;?>
+                </div>
+                <?php
+
+	            break;
 		    case $element instanceof FileField:
 			    $template = 'file';
 			    break;
@@ -105,24 +160,27 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
 	    }
         ?>
 
-        <label class="customblock-block-label <?=($isCheckbox ? "customblock-block-checkbox" : "")?>">
+        <?php if (!$isRecursive):?>
+            <label class="customblock-block-label <?=($isCheckbox ? "customblock-block-checkbox" : "")?>">
 
-        <?php if($element->getLabel() && !$isCheckbox):?>
-            <p><?=$element->getLabel()?></p>
+		    <?php if($element->getLabel() && !$isCheckbox):?>
+                <p><?=$element->getLabel()?></p>
+		    <?php endif;?>
+
+            <?php $APPLICATION->IncludeComponent(
+                'tryhardy.params:field.widget',
+                $template,
+                $params
+            ); ?>
+
+            <?php
+            if($element->getLabel() && $isCheckbox):?>
+                <p><?=$element->getLabel()?></p>
+            <?php endif;?>
+
+            </label>
         <?php endif;?>
 
-        <?php $APPLICATION->IncludeComponent(
-		    'tryhardy.params:field.widget',
-		    $template,
-		    $params
-	    ); ?>
-
-        <?php
-	    if($element->getLabel() && $isCheckbox):?>
-            <p><?=$element->getLabel()?></p>
-	    <?php endif;?>
-
-        </label>
         <?php
     }
     ?>
@@ -166,8 +224,10 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
 
         for (let i = 0; i < allFields.length; i++) {
             var field = allFields[i];
-            var fieldId = field.name;
-            observer.inputs[fieldId] = field.value;
+            if (field.type != 'button') {
+                var fieldId = field.name;
+                observer.inputs[fieldId] = field.value;
+            }
         }
 
         for (let i = 0; i < allFields.length; i++) {
@@ -198,8 +258,11 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER)
             if (window.observer<?=$ID?>.inputs) {
                 for (key in window.observer<?=$ID?>.inputs) {
                     var input = document.querySelector('[name="' + key + '"]');
-                    var value = window.observer<?=$ID?>.inputs[key];
-                    if (input) input.value = value;
+
+                    if (input.type != 'button') {
+                        var value = window.observer<?=$ID?>.inputs[key];
+                        if (input) input.value = value;
+                    }
                 }
             }
 

@@ -140,8 +140,16 @@ class JsUniversalEditor
 
         if (moreBtn.length > 0) {
             for (let i = 0; i < moreBtn.length; i++) {
-                moreBtn[i].onclick = function (e) {
-                    $this.__addItem();
+
+                if (!moreBtn[i].dataset.group) {
+                    moreBtn[i].onclick = function (e) {
+                        $this.__addItem();
+                    }
+                }
+                else {
+                    moreBtn[i].onclick = function (e) {
+                        $this.__addGroupItem(moreBtn[i]);
+                    }
                 }
             }
         }
@@ -152,7 +160,72 @@ class JsUniversalEditor
      * @param item
      * @private
      */
-    __addItem = function()
+    __addGroupItem = function(button, action = 'clone_group')
+    {
+        var parent = button.closest(".group-fields");
+
+        if (!parent) {
+            console.log('parent not found');
+            return;
+        }
+
+        var wrapper = parent.querySelector(".group-fields__wrapper");
+
+        if (!wrapper) {
+            console.log('wrapper not found');
+            return;
+        }
+
+        var hash = parent.dataset.parent;
+        var name = parent.dataset.name;
+        var items = parent.querySelectorAll("[data-name='" + hash + "']");
+        var $this = this;
+        var arParams = this.arParams;
+        var strUrl = '/bitrix/js/tryhardy.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
+        var count = items.length;
+
+        BX.ajax.post(
+            strUrl,
+            {
+                DATA: BX.util.urlencode(arParams.oInput.value),
+                MULTIPLE: arParams.propertyParams.MULTIPLE === 'Y' ? 'Y' : 'N',
+                PROPERTY_ID: arParams.propertyID,
+                ID: arParams.oInput.id,
+                sessid: BX.bitrix_sessid(),
+                OPTIONS: arParams.data,
+                ACTION:action,
+                NUMBER: count,
+                HASH: hash,
+                NAME: name
+            },
+            function (data) {
+
+                var clone = document.createElement('div');
+                clone.innerHTML = data;
+                var inputs = clone.querySelectorAll('input, textarea, select');
+                if (inputs.length > 0) {
+                    for (var i = 0; i < inputs.length; i++) {
+                        inputs[i].value = '';
+                    }
+                }
+
+                var currentData = clone.querySelector('.group-fields__item');
+
+                if (currentData) {
+                    wrapper.appendChild(currentData);
+                }
+
+                $this.__bindEventsOnInput($this.arParams.oCont);
+            }
+        )
+    }
+
+    /**
+     * Функция клонирования элементов
+     * @param item
+     * @private
+     */
+    __addItem = function(action = 'clone')
     {
         var parent = this.arParams.oCont.querySelector(this.itemsClass);
         var $this = this;
@@ -169,7 +242,7 @@ class JsUniversalEditor
                 ID: arParams.oInput.id,
                 sessid: BX.bitrix_sessid(),
                 OPTIONS: arParams.data,
-                ACTION:'clone',
+                ACTION:action,
                 NUMBER: count
             },
             function (data) {
@@ -179,6 +252,7 @@ class JsUniversalEditor
                 var inputs = clone.querySelectorAll('input, textarea, select');
                 if (inputs.length > 0) {
                    for (var i = 0; i < inputs.length; i++) {
+                       if (inputs[i].type == 'button') continue;
                        inputs[i].value = '';
                    }
                 }

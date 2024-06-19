@@ -57,3 +57,29 @@
 .bxcompprop-cont-table-l {
     vertical-align: top !important;
 }
+
+.customblock-block-wrapper .group-fields {
+    border: 1px solid #c7c7c7;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.group-fields__item:first-child {
+    border-top: 0;
+    padding-top: 0px;
+}
+
+.group-fields__item {
+    border-top: 1px solid #c7c7c7;
+    padding-top: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.more-btn {
+    max-width: 40px;
+    width: 40px;
+    display: block;
+    min-width: fit-content;
+}
