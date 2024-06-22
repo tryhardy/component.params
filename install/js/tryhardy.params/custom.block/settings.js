@@ -137,7 +137,7 @@ class JsUniversalEditor
         var $this = this;
         var parent = $this.arParams.oCont;
         let moreBtn = parent.querySelectorAll(this.moreButtonClass);
-
+        console.log('__bindCloning');
         if (moreBtn.length > 0) {
             for (let i = 0; i < moreBtn.length; i++) {
 
@@ -147,6 +147,7 @@ class JsUniversalEditor
                     }
                 }
                 else {
+                    console.log(moreBtn[i]);
                     moreBtn[i].onclick = function (e) {
                         $this.__addGroupItem(moreBtn[i]);
                     }
@@ -156,7 +157,6 @@ class JsUniversalEditor
     }
 
     /**
-     * Функция клонирования элементов
      * @param item
      * @private
      */
@@ -216,6 +216,7 @@ class JsUniversalEditor
                 }
 
                 $this.__bindEventsOnInput($this.arParams.oCont);
+                $this.__bindCloning();
             }
         )
     }
@@ -261,6 +262,7 @@ class JsUniversalEditor
 
                 parent.appendChild(currentData);
                 $this.__bindEventsOnInput($this.arParams.oCont);
+                $this.__bindCloning();
             }
         )
     }

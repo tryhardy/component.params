@@ -114,24 +114,32 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                 ?>
                 <div class="group-fields" data-parent="<?=$hash?>" data-name="<?=$name?>">
                     <label class="group-fields__label customblock-block-label">
-	                    <?php if($element->getLabel()):?><p><?=$element->getLabel()?></p><?php endif;?>
+	                    <?php if($element->getLabel()):?>
+                            <p style="margin-bottom: 15px;font-size: 18px;"><?=$element->getLabel()?></p>
+                        <?php endif;?>
                         <div class="group-fields__wrapper">
                             <?php
                             $n = 0;
                             if(is_array($groupFieldsData) && count($groupFieldsData) > 0):?>
                                 <?php foreach($groupFieldsData as $groupData):?>
                                     <?php
-                                    $emptyArray = array_filter($groupData, function ($value) {
-	                                    return ($value !== null && $value !== '');
-                                    });
-                                    if (!empty($emptyArray)) :
+                                    $show = true;
+                                    if (!empty($groupData) && count($groupFieldsData) > 1) {
+	                                    $emptyArray = array_filter($groupData, function ($value) {
+		                                    return ($value !== null && $value !== '');
+	                                    });
+
+	                                    if (empty($emptyArray)) {
+		                                    $show = false;
+	                                    }
+                                    }
+
+                                    if ($show) :
                                         if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
                                             $APPLICATION->RestartBuffer();
                                             $n = $NUMBER;
                                         }
-                                        if ((string) $_REQUEST['NAME']) {
-                                            $name = (string) $_REQUEST['NAME'];
-                                        }
+                                        if ((string) $_REQUEST['NAME']) $name = (string) $_REQUEST['NAME'];
                                         ?>
                                         <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
                                             <?php
@@ -142,11 +150,26 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                                         </div>
                                     <?php endif; ?>
                                 <?php endforeach;?>
+                            <?php elseif (!$groupFieldsData || $_REQUEST['ACTION'] == 'clone'):?>
+                                <?php
+	                            if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
+		                            $APPLICATION->RestartBuffer();
+		                            $n = $NUMBER;
+	                            }
+	                            if ((string) $_REQUEST['NAME']) $name = (string) $_REQUEST['NAME'];
+                                ?>
+                                <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
+		                            <?php
+		                            showCustomParamsBlock($ID, $element->getFields(), [], $PROPERTY_ID, $n, $name);
+		                            if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) die();
+		                            $n++;
+		                            ?>
+                                </div>
                             <?php endif;?>
                         </div>
                     </label>
 	                <?php if ($element->isMultiple()):?>
-                        <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+" style="max-width: 40px;width: 40px;display: block;min-width: fit-content;">
+                        <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+">
 	                <?endif;?>
                 </div>
                 <?php

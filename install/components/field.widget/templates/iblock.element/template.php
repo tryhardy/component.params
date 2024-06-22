@@ -32,7 +32,7 @@ if (!function_exists('buildAdminElementLink')) {
 			return '';
 		}
 		if (!\Bitrix\Main\Loader::includeModule('iblock')) return '';
-        
+
 		$iblock = (int)$iblock;
 		if (empty($iblock)) {
 			$res = \CIBlockElement::GetList([], ['ID' => $id], false, ['IBLOCK_ID', 'ID']);
@@ -70,6 +70,17 @@ if (!function_exists('buildAdminElementLink')) {
 
 		<div class="file-select-row__actions" <?= $arResult["DISABLED_ATTR"] ?>>
 			<button type="button"
+                    style="
+                        border: 1px solid lightgrey;
+                        padding: 6px 12px;
+                        border-radius: 3px;
+                        box-shadow: 2px 2px 3px #434343;
+                        color: darkgray;
+                        font-weight: bold;
+                        font-size: 18px;
+                        line-height: 4px;
+                        vertical-align: middle;
+                        padding-bottom: 12px;"
 					onclick="<?php if ($popupUrl): ?>jsUtils.OpenWindow('<?= $popupUrl ?>', 900, 700);<?php endif; ?>">...
 			</button>
 		</div>

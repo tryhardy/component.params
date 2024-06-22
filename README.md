@@ -277,7 +277,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ![Пример использования](/images/image_2.png)
 
 
-### Вывод диалогового окна с множественной группой вложенных полей
+### Вывод групп полей
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -290,24 +290,39 @@ use \Tryhardy\Params\Fields;
  */
 
 if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
-    $сollection = new Fields\FieldsCollection();
-    
-    $fieldsCollection = new FieldsCollection();
-	$fieldsCollection->add((new Field('random_name', 'Заголовок'))->setLabel('Заголовок'));
-	$fieldsCollection->add((new TextareaField('random_descr', 'Описание'))->setLabel('Описание'));
-	$fieldsCollection->add(ComponentParams::getIconsSelectField());
 
-	$groupField = (new GroupFields('groupFields', 'Группа полей'))->setMultiple();
+    //Создаем пустую коллекцию полей
+    $сollection = new FieldsCollection();
+    //Добавляем в нее <input type="text" name="name" placeholder="Заголовок">
+	$сollection->add((new Field('name', 'Заголовок'))->setLabel('Заголовок'));
+    //Добавляем в нее <textarea name="descr" placeholder="Описание">
+	$сollection->add((new TextareaField('descr', 'Описание'))->setLabel('Описание'));
+
+    //Создаем множественную пустую группу полей, которая будет вложена внутрь коллекции $сollection
+    $groupField = (new GroupFields('groupFields', 'Группа полей'))->setMultiple();
+	//Настраиваем коллекцию полей, которые будут вложены в экземпляр $groupField
 	$GroupFieldsCollection = new FieldsCollection();
-	$GroupFieldsCollection->add((new Field('link', 'Href'))->setLabel('Href'));
+	$GroupFieldsCollection->add((new Field('href', 'Href'))->setLabel('Href'));
 	$GroupFieldsCollection->add((new Field('text', 'Название ссылки'))->setLabel('Описание'));
-	$GroupFieldsCollection->add(ComponentParams::getIconsSelectField());
 	$GroupFieldsCollection->add((new IblockField((int)$arCurrentValues['IBLOCK_ID'], 'iblock'))->setLabel('Инфоблок'));
 	$groupField->setFields($GroupFieldsCollection);
 	
-	$fieldsCollection->add($groupField);
-
-	ComponentParams::setCustomParams($arTemplateParameters, $arCurrentValues, $fieldsCollection, 'GROUP_FIELDS', multiple: 'Y');
+	//Добавляем группу полей в коллекцию 
+	$сollection->add($groupField);
+    
+    //Добавляем получившуюся коллекцию полей в параметры компонента
+    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "GROUP_FIELDS",
+        name: "Кастомный блок",
+        parent: "ADDITIONAL_SETTINGS",
+        multiple: "Y",
+        refresh: "N"
+    );
     
 }
 ```
+![Пример использования](/images/image_3.png)
+
