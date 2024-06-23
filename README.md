@@ -324,6 +324,6 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
-[![Watch the video](/images/image_4.png)](https://github.com/tryhardy/tryhardy.params/assets/61752684/9111cb5a-1b95-424b-9271-8410d7e89a91)
+[![Watch the video](/images/image_4.png)](https://github.com/tryhardy/tryhardy.params/dev/images/video_1.mp4)
 
 
