@@ -70,6 +70,7 @@ if (!function_exists('buildAdminSectionLink')) {
 
 		<div class="file-select-row__actions" <?= $arResult["DISABLED_ATTR"] ?>>
 			<button type="button"
+                    class="tryhardy_dialog_button"
 					onclick="<?php if ($popupUrl): ?>jsUtils.OpenWindow('<?= $popupUrl ?>', 900, 700);<?php endif; ?>">...
 			</button>
 		</div>
