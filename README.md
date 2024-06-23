@@ -117,8 +117,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
-https://github.com/tryhardy/tryhardy.params/assets/61752684/eb53d8bf-e4a7-4717-afe6-43aa57470d62
-
+https://github.com/tryhardy/tryhardy.params/assets/61752684/984bf5db-dd94-4105-a965-25209b1b1095
 
 
 
