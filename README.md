@@ -40,7 +40,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
         
     //Простое тектовое поле: <input type="text" name="theme">
-    $simpleInputField = (new Fields\Field(name: 'name')->setLabel('Some random label'));
+    $simpleInputField = (new Fields\Field(name: 'name'))->setLabel('Some random label');
     //Добавляем это поле в коллекцию
     $сollection->add($simpleInputField);
     
