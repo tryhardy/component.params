@@ -117,6 +117,10 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
+https://github.com/tryhardy/tryhardy.params/assets/61752684/40fece53-5252-458e-8d27-ab64b0b62e09
+
+
+
 ### <a id='t5'>Вывод \<textarea></a>
 ```php
 //в файле .parameters.php шаблона компонента
