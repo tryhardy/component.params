@@ -50,7 +50,7 @@ class JsUniversalEditor
     __bindEventsOnInput = function(parent)
     {
         var $this = this;
-
+        $this.itemClass = $this.itemClass + '[data-child="false"]';
         var childBlocks = parent.querySelectorAll($this.itemClass);
         this.arParams.items = childBlocks;
 
@@ -137,7 +137,6 @@ class JsUniversalEditor
         var $this = this;
         var parent = $this.arParams.oCont;
         let moreBtn = parent.querySelectorAll(this.moreButtonClass);
-        console.log('__bindCloning');
         if (moreBtn.length > 0) {
             for (let i = 0; i < moreBtn.length; i++) {
 
@@ -147,7 +146,6 @@ class JsUniversalEditor
                     }
                 }
                 else {
-                    console.log(moreBtn[i]);
                     moreBtn[i].onclick = function (e) {
                         $this.__addGroupItem(moreBtn[i]);
                     }

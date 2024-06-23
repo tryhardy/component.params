@@ -324,5 +324,6 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
-![Пример использования](/images/image_3.png)
+[![Watch the video](/images/image_4.png)](/video/video_1.mp4)
+
 

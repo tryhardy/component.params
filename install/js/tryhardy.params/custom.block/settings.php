@@ -64,12 +64,12 @@ if ($options['data']) {
     }
 }
 
-function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 0, string $NAME = '')
+function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 0, string $NAME = '', bool $parent = true)
 {
     global $APPLICATION;
     ?>
 
-    <div class="customblock-block-outer outer<?=$ID?>">
+    <div class="customblock-block-outer outer<?=$ID?>" data-child="<?php if(!$parent):?>true<?php else:?>false<?php endif?>">
 
     <?php foreach($object as $element) {
         $isRecursive = $element instanceof GroupFields;
@@ -143,7 +143,7 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                                         ?>
                                         <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
                                             <?php
-                                            showCustomParamsBlock($ID, $element->getFields(), $groupData, $PROPERTY_ID, $n, $name);
+                                            showCustomParamsBlock($ID, $element->getFields(), $groupData, $PROPERTY_ID, $n, $name, false);
                                             if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) die();
                                             $n++;
                                             ?>
@@ -160,7 +160,7 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                                 ?>
                                 <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
 		                            <?php
-		                            showCustomParamsBlock($ID, $element->getFields(), [], $PROPERTY_ID, $n, $name);
+		                            showCustomParamsBlock($ID, $element->getFields(), [], $PROPERTY_ID, $n, $name, false);
 		                            if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) die();
 		                            $n++;
 		                            ?>
