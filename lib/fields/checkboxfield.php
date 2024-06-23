@@ -12,7 +12,7 @@ class CheckboxField extends Field
 	{
 		return $this->checked;
 	}
-	public function setChecked(bool $checked) : static
+	public function setChecked(bool $checked = true) : static
 	{
 		$this->checked = $checked;
 		return $this;
