@@ -354,4 +354,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
-https://github.com/tryhardy/tryhardy.params/assets/61752684/0cd6fd72-d745-47bf-a5c7-109a3e1da801 
+
+https://github.com/tryhardy/tryhardy.params/assets/61752684/ffa219e4-0ceb-452d-9f34-d019edd8008a
+
+
