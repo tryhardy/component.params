@@ -1,14 +1,26 @@
-# Описание
+# Оглавление
+1. [Описание](#t1)
+2. [Пример использования](#t2)
+3. [Вывод простого текстового инпута](#t3)
+4. [Вывод селекта](#t4)
+5. [Вывод \<textarea>\</textarea>](#t5)
+6. [Вывод поля выбора элемента инфоблока](#t6)
+7. [Вывод поля выбора раздела инфоблока](#t7)
+8. [Вывод чекбокса](#t8)
+9. [Вывод диалогового окна с выбором файла](#t9)
+10. [Вывод вложенных групп полей](#t10)
+
+# <a id='t1'>Описание</a>
 Простой модуль для настройки параметров компонентов без необходимости хранить значения в отдельной таблице в БД.
 
 В некоторых случаях помогает сэкономить время на написании миграций.
 
-## Пример использования (множественный блок ссылок):
+## <a id='t2'>Пример использования (множественный блок ссылок)</a>
 ![Пример использования](/images/image_1.png)
 
 Поля можно генерировать практически в любых комбинациях
 
-## Вывод простого текстового инпута
+## <a id='t3'>Вывод простого текстового инпута</a>
 ```php
 <?php
 //в файле .parameters.php шаблона компонента
@@ -46,7 +58,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
-## Вывод селекта
+## <a id='t4'>Вывод селекта</a>
 ```php
 <?php
 //в файле .parameters.php шаблона компонента
@@ -99,7 +111,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
-### Вывод \<textarea\>\<\/textarea\>
+### <a id='t5'>Вывод \<textarea\>\<\/textarea\></a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -135,7 +147,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-### Вывод поля выбора элемента инфоблока
+### <a id='t6'>Вывод поля выбора элемента инфоблока</a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -169,7 +181,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-### Вывод поля выбора раздела инфоблока
+### <a id='t7'>Вывод поля выбора раздела инфоблока</a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -203,7 +215,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-### Вывод чекбокса
+### <a id='t8'>Вывод чекбокса</a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -242,7 +254,7 @@ https://github.com/tryhardy/tryhardy.params/assets/61752684/02e3a90d-0db2-49bf-9
 
 
 
-### Вывод диалогового окна с выбором файла
+### <a id='t9'>Вывод диалогового окна с выбором файла</a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -281,9 +293,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 https://github.com/tryhardy/tryhardy.params/assets/61752684/fb9bde56-3e39-41d6-8395-0485b4bd6dda
 
 
-
-
-### Вывод вложенных групп полей
+### <a id='t10'>Вывод вложенных групп полей</a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
