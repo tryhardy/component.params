@@ -119,9 +119,6 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 
 https://github.com/tryhardy/tryhardy.params/assets/61752684/984bf5db-dd94-4105-a965-25209b1b1095
 
-
-
-
 ### <a id='t5'>Вывод \<textarea></a>
 ```php
 //в файле .parameters.php шаблона компонента
@@ -157,6 +154,9 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
+
+https://github.com/tryhardy/tryhardy.params/assets/61752684/96af982d-0912-4d5c-a3ad-ca33a3edbf2f
+
 
 ### <a id='t6'>Вывод диалогового окна с выбором элемента инфоблока (по ID)</a>
 ```php
