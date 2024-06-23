@@ -60,6 +60,10 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
+https://github.com/tryhardy/tryhardy.params/assets/61752684/6664d787-f0ec-4454-896c-219f1ac75bde
+
+
+
 ## <a id='t4'>Вывод \<select></a>
 ```php
 <?php
