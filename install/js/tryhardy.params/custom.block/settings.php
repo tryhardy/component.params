@@ -56,12 +56,6 @@ if ($options['data']) {
     if (unserialize($options['data'])) {
         $arData = unserialize($options['data']);
     }
-
-	//Забираем первый элемент для отрисовки
-    if (is_array($arData)) {
-	    $firstElement = reset($arData);
-	    unset($arData[key($arData)]);
-    }
 }
 
 function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 0, string $NAME = '', bool $parent = true)
@@ -217,10 +211,11 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
     <div class="customblock-block-items items<?=$ID?>">
 
         <?php if ($_REQUEST['ACTION'] == 'clone') $APPLICATION->RestartBuffer();?>
-            <?php showCustomParamsBlock($ID, $object, $firstElement, $PROPERTY_ID, $NUMBER);?>
+            <?php showCustomParamsBlock($ID, $object, [], $PROPERTY_ID, $NUMBER);?>
 	    <?php if ($_REQUEST['ACTION'] == 'clone') die();?>
 
         <?php if(is_array($arData) && count($arData) > 0):?>
+            <?php $arData = array_values($arData);?>
             <?php foreach($arData as $i => $data):?>
                 <?php
                 $emptyArray = array_filter($data, function ($value) {
