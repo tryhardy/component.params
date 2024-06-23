@@ -283,7 +283,7 @@ https://github.com/tryhardy/tryhardy.params/assets/61752684/fb9bde56-3e39-41d6-8
 
 
 
-### Вывод групп полей
+### Вывод вложенных групп полей
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
