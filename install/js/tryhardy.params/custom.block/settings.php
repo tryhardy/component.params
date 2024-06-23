@@ -198,7 +198,7 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
 
             <?php
             if($element->getLabel() && $isCheckbox):?>
-                <p><?=$element->getLabel()?></p>
+                <p style="margin-left:10px;"><?=$element->getLabel()?></p>
             <?php endif;?>
 
             </label>
