@@ -275,7 +275,10 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
-![Пример использования](/images/image_2.png)
+
+https://github.com/tryhardy/tryhardy.params/assets/61752684/fb9bde56-3e39-41d6-8395-0485b4bd6dda
+
+
 
 
 ### Вывод групп полей
