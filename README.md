@@ -254,11 +254,12 @@ use \Tryhardy\Params\Fields;
 if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Desc)");
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Tab)");
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Mob)");
-    
-    $сollection->add($field);
+    $field1 = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Desc)");
+    $field2 = (new Fields\FileField(name: "image_tab"))->setLabel("Изображение для таба (Tab)");
+    $field3 = (new Fields\FileField(name: "image_mob"))->setLabel("Изображение для таба (Mob)");
+    $сollection->add($field1);
+    $сollection->add($field2);
+    $сollection->add($field3);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
     \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
