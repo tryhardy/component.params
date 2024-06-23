@@ -238,6 +238,9 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
+https://github.com/tryhardy/tryhardy.params/assets/61752684/02e3a90d-0db2-49bf-9367-c0683a358f83
+
+
 
 ### Вывод диалогового окна с выбором файла
 ```php
