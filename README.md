@@ -103,7 +103,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
         $arCurrentValues,
         fieldsCollection: $сollection,
         code: "SELECTS_BLOCK",
-        name: "Ссылки:",
+        name: "Селекты:",
         parent: "ADDITIONAL_PARAMETERS",
         multiple: "Y",
         refresh: "N"
