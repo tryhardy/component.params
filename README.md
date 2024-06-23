@@ -301,7 +301,10 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
-https://github.com/tryhardy/tryhardy.params/assets/61752684/fb9bde56-3e39-41d6-8395-0485b4bd6dda
+
+https://github.com/tryhardy/tryhardy.params/assets/61752684/92a952ea-e88a-422e-98d2-852beb5aca98
+
+
 
 
 ### <a id='t10'>Вывод вложенных групп полей</a>
