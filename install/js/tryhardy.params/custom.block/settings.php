@@ -210,9 +210,11 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
 <div class="customblock-block-wrapper wrapper<?=$ID?>">
     <div class="customblock-block-items items<?=$ID?>">
 
-        <?php if ($_REQUEST['ACTION'] == 'clone') $APPLICATION->RestartBuffer();?>
-            <?php showCustomParamsBlock($ID, $object, [], $PROPERTY_ID, $NUMBER);?>
-	    <?php if ($_REQUEST['ACTION'] == 'clone') die();?>
+        <?php if ($_REQUEST['ACTION'] == 'clone') {
+	        $APPLICATION->RestartBuffer();
+	        showCustomParamsBlock($ID, $object, [], $PROPERTY_ID, $NUMBER);
+	        die();
+        } ?>
 
         <?php if(is_array($arData) && count($arData) > 0):?>
             <?php $arData = array_values($arData);?>
@@ -227,6 +229,8 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                 }
                 ?>
             <?php endforeach;?>
+        <?php else:?>
+            <?php showCustomParamsBlock($ID, $object, [], $PROPERTY_ID, $NUMBER);?>
         <?php endif;?>
 
     </div>
