@@ -85,24 +85,23 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
             'ATTR' => ' data-bx-comp-prop="true" data-bx-property-id=' . $name . ' ',
         ];
 
-	    switch ($element) {
-		    case $element instanceof SelectField:
+	    switch ($element::class) {
+		    case (SelectField::class):
 			    $template = 'select';
 			    $params['OPTIONS'] = $element->getOptions();
 			    break;
-		    case $element instanceof TextareaField:
-			    $template = 'textarea';
+		    case (TextareaField::class):
+                $template = 'textarea';
 			    break;
-		    case $element instanceof CheckboxField:
+		    case (CheckboxField::class):
 			    $isCheckbox = true;
 			    $template = 'checkbox';
 			    break;
-		    case $element instanceof IblockField:
-			    $template = $element->getIsSection() ? 'iblock.section' : 'iblock.element';
+		    case (IblockField::class):
+			    $template = ($element->getIsSection() ? 'iblock.section' : 'iblock.element');
 			    $params['IBLOCK_ID'] = $element->getIblockId();
 			    break;
-            case $element instanceof GroupFields:?>
-                <?php
+            case (GroupFields::class):
                 $groupFieldsData = $data[$element->getName()];
                 $hash = $element->getHash();
                 ?>
@@ -162,18 +161,17 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                             <?php endif;?>
                         </div>
                     </label>
-	                <?php if ($element->isMultiple()):?>
-                        <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+">
-	                <?endif;?>
+	                <?php if($element->isMultiple()):?>
+                        <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+"/>
+	                <?php endif;?>
                 </div>
                 <?php
 
 	            break;
-		    case $element instanceof FileField:
+		    case (FileField::class):
 			    $template = 'file';
 			    break;
-		    default:
-			    break;
+            default:
 	    }
         ?>
 

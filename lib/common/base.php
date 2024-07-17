@@ -2,6 +2,7 @@
 
 namespace Tryhardy\Params\Common;
 
+use ReflectionException;
 use ReflectionObject;
 use ReflectionProperty;
 
@@ -29,13 +30,13 @@ class Base
 	}
 
 	/**
-	 * Позволяет задать свойство динамически, если оно еще не задано
-	 * @param string $name
-	 * @param $value
-	 * @return void
-	 * @throws \ReflectionException
-	 */
-	public function __set(string $name, $value)
+  * Позволяет задать свойство динамически, если оно еще не задано
+  * @param string $name
+  * @param $value
+  * @return void
+  * @throws ReflectionException
+  */
+ public function __set(string $name, $value)
 	{
 		$reflectionClass = new ReflectionObject($this);
 
@@ -45,7 +46,7 @@ class Base
 				$this->{$name} = $value;
 			}
 			else {
-				throw new \ReflectionException('Property ' . $name . ' is not public');
+				throw new ReflectionException('Property ' . $name . ' is not public');
 			}
 		}
 		else {
