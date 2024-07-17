@@ -130,5 +130,5 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 		<?= $arResult["VALUE_ATTR"] ?>
 	    <?= $arResult["PLACEHOLDER_ATTR"] ?>
     >
-    <button onclick="window.openFileDialog(event, '<?=$arResult["ID"]?>', <?=(CUtil::PhpToJSObject($config) ?: CUtil::PhpToJSObject([]))?>);">...</button>
+    <button class="tryhardy_dialog_button" onclick="window.openFileDialog(event, '<?=$arResult["ID"]?>', <?=(CUtil::PhpToJSObject($config) ?: CUtil::PhpToJSObject([]))?>);">...</button>
 <?php endif; ?>

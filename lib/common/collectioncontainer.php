@@ -2,6 +2,7 @@
 
 namespace Tryhardy\Params\Common;
 
+use Exception;
 use Tryhardy\Params\Common\Interfaces\CollectionContainerInterface;
 
 abstract class CollectionContainer extends Base implements CollectionContainerInterface
@@ -20,7 +21,7 @@ abstract class CollectionContainer extends Base implements CollectionContainerIn
 	{
 		try {
 			if (!$this->entity) {
-				throw new \Exception("Entity must be set");
+				throw new Exception("Entity must be set");
 			}
 
 			if (!isset($this->collection)) {
@@ -28,7 +29,7 @@ abstract class CollectionContainer extends Base implements CollectionContainerIn
 				$this->items = $this->collection->getCollection();
 			}
 		}
-		catch (\Exception $e) {
+		catch (Exception $e) {
 			echo $e->getMessage();
 			die();
 		}
@@ -45,7 +46,7 @@ abstract class CollectionContainer extends Base implements CollectionContainerIn
 		$this->createEntity();
 
 		if (!$collection instanceof $this->entity) {
-			throw new \Exception("Collection must be instance of {$this->entity}");
+			throw new Exception("Collection must be instance of {$this->entity}");
 		}
 
 		$this->collection = $collection;

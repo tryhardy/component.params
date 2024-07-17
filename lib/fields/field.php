@@ -5,6 +5,7 @@ use Tryhardy\Params\Common\CollectionContainer;
 
 class Field extends CollectionContainer
 {
+	protected string $hash = "";
 	public ?string $id = "";
 	protected string $name = "";
 	protected ?string $placeholder = "";
@@ -15,6 +16,7 @@ class Field extends CollectionContainer
 	{
 		parent::__construct();
 
+		$this->hash = uniqid();
 		$this->name = $name;
 		$this->id = $name;
 		$this->placeholder = $placeholder ?: "";
@@ -28,6 +30,16 @@ class Field extends CollectionContainer
 	public function getPlaceholder() : string|null
 	{
 		return $this->placeholder;
+	}
+
+	public function getId() : string
+	{
+		return $this->id;
+	}
+
+	public function getHash() : string
+	{
+		return $this->hash;
 	}
 
 	public function getLabel() : string

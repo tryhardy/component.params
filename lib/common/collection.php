@@ -2,9 +2,11 @@
 
 namespace Tryhardy\Params\Common;
 
+use Countable;
+use Iterator;
 use Exception;
 
-class Collection extends Base implements \Countable, \Iterator
+class Collection extends Base implements Countable, Iterator
 {
 	protected string $entity = Base::class;
 
@@ -56,7 +58,7 @@ class Collection extends Base implements \Countable, \Iterator
 	public function add(Base $item, mixed $key = null)
 	{
 		if (!$item instanceof $this->entity) {
-			throw new \Exception("Collection item must be instance of $this->entity");
+			throw new Exception("Collection item must be instance of $this->entity");
 		}
 
 		if ($key !== null && $key !== false) {

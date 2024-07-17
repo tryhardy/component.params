@@ -1,14 +1,28 @@
-# Описание
-Простой модуль для настройки параметров компонентов без необходимости хранить значения в отдельной таблице в БД.
+# Оглавление
+1. [Описание](#t1)
+2. [Пример использования](#t2)
+3. [Вывод \<input type="text">](#t3)
+4. [Вывод \<select>](#t4)
+5. [Вывод \<textarea>](#t5)
+6. [Вывод диалогового окна с выбором элемента инфоблока (по ID)](#t6)
+7. [Вывод диалогового окна с выбором выбора раздела инфоблока](#t7)
+8. [Вывод \<input type="checkbox">](#t8)
+9. [Вывод диалогового окна с выбором файла](#t9)
+10. [Вывод вложенных групп полей](#t10)
 
-В некоторых случаях помогает сэкономить время на написании миграций.
+# <a id='t1'>Описание</a>
+Простой модуль для настройки параметров компонентов без необходимости хранить значения параметров в отдельной таблице в БД.
 
-## Пример использования (множественный блок ссылок):
+Значительно экономит время на написании и отладке миграций.
+
+Состав полей можно конфигурировать практически в любых комбинациях.
+
+Полезно, если на проекте много плашек с фактоидами и табами, которые нет смысла хранить в БД.
+
+## <a id='t2'>Пример использования</a>
 ![Пример использования](/images/image_1.png)
 
-Поля можно генерировать практически в любых комбинациях
-
-## Вывод простого текстового инпута
+## <a id='t3'>Вывод \<input type="text"></a>
 ```php
 <?php
 //в файле .parameters.php шаблона компонента
@@ -26,7 +40,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
         
     //Простое тектовое поле: <input type="text" name="theme">
-    $simpleInputField = (new Fields\Field(name: 'name')->setLabel('Some random label'));
+    $simpleInputField = (new Fields\Field(name: 'name'))->setLabel('Some random label');
     //Добавляем это поле в коллекцию
     $сollection->add($simpleInputField);
     
@@ -46,7 +60,11 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
-## Вывод селекта
+https://github.com/tryhardy/tryhardy.params/assets/61752684/6664d787-f0ec-4454-896c-219f1ac75bde
+
+
+
+## <a id='t4'>Вывод \<select></a>
 ```php
 <?php
 //в файле .parameters.php шаблона компонента
@@ -89,7 +107,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
         $arCurrentValues,
         fieldsCollection: $сollection,
         code: "SELECTS_BLOCK",
-        name: "Ссылки:",
+        name: "Селекты:",
         parent: "ADDITIONAL_PARAMETERS",
         multiple: "Y",
         refresh: "N"
@@ -99,7 +117,9 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
-### Вывод \<textarea\>\<\/textarea\>
+https://github.com/tryhardy/tryhardy.params/assets/61752684/984bf5db-dd94-4105-a965-25209b1b1095
+
+### <a id='t5'>Вывод \<textarea></a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -135,7 +155,10 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-### Вывод поля выбора элемента инфоблока
+https://github.com/tryhardy/tryhardy.params/assets/61752684/96af982d-0912-4d5c-a3ad-ca33a3edbf2f
+
+
+### <a id='t6'>Вывод диалогового окна с выбором элемента инфоблока (по ID)</a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -169,7 +192,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-### Вывод поля выбора раздела инфоблока
+### <a id='t7'>Вывод диалогового окна с выбором выбора раздела инфоблока (по ID)</a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -203,7 +226,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-### Вывод чекбокса
+### <a id='t8'>Вывод \<input type="checkbox"></a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -238,8 +261,11 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
+https://github.com/tryhardy/tryhardy.params/assets/61752684/02e3a90d-0db2-49bf-9367-c0683a358f83
 
-### Вывод диалогового окна с выбором файла
+
+
+### <a id='t9'>Вывод диалогового окна с выбором файла</a>
 ```php
 //в файле .parameters.php шаблона компонента
 use \Tryhardy\Params\Fields;
@@ -254,11 +280,12 @@ use \Tryhardy\Params\Fields;
 if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     $сollection = new Fields\FieldsCollection();
     
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Desc)");
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Tab)");
-    $field = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Mob)");
-    
-    $сollection->add($field);
+    $field1 = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Desc)");
+    $field2 = (new Fields\FileField(name: "image_tab"))->setLabel("Изображение для таба (Tab)");
+    $field3 = (new Fields\FileField(name: "image_mob"))->setLabel("Изображение для таба (Mob)");
+    $сollection->add($field1);
+    $сollection->add($field2);
+    $сollection->add($field3);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
     \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
@@ -274,4 +301,60 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
-![Пример использования](/images/image_2.png)
+
+https://github.com/tryhardy/tryhardy.params/assets/61752684/92a952ea-e88a-422e-98d2-852beb5aca98
+
+
+
+
+### <a id='t10'>Вывод вложенных групп полей</a>
+```php
+//в файле .parameters.php шаблона компонента
+use \Tryhardy\Params\Fields;
+
+/**
+ * @global  CMain    $APPLICATION
+ * @var     array    $arParams
+ * @var     array    $arCurrentValues
+ * @var     array    $arResult
+ */
+
+if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+
+    //Создаем пустую коллекцию полей
+    $сollection = new FieldsCollection();
+    //Добавляем в нее <input type="text" name="name" placeholder="Заголовок">
+	$сollection->add((new Field('name', 'Заголовок'))->setLabel('Заголовок'));
+    //Добавляем в нее <textarea name="descr" placeholder="Описание">
+	$сollection->add((new TextareaField('descr', 'Описание'))->setLabel('Описание'));
+
+    //Создаем множественную пустую группу полей, которая будет вложена внутрь коллекции $сollection
+    $groupField = (new GroupFields('groupFields', 'Группа полей'))->setMultiple();
+	//Настраиваем коллекцию полей, которые будут вложены в экземпляр $groupField
+	$GroupFieldsCollection = new FieldsCollection();
+	$GroupFieldsCollection->add((new Field('href', 'Href'))->setLabel('Href'));
+	$GroupFieldsCollection->add((new Field('text', 'Название ссылки'))->setLabel('Описание'));
+	$GroupFieldsCollection->add((new IblockField((int)$arCurrentValues['IBLOCK_ID'], 'iblock'))->setLabel('Инфоблок'));
+	$groupField->setFields($GroupFieldsCollection);
+	
+	//Добавляем группу полей в коллекцию 
+	$сollection->add($groupField);
+    
+    //Добавляем получившуюся коллекцию полей в параметры компонента
+    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+        $arTemplateParameters,
+        $arCurrentValues,
+        fieldsCollection: $сollection,
+        code: "GROUP_FIELDS",
+        name: "Кастомный блок",
+        parent: "ADDITIONAL_SETTINGS",
+        multiple: "Y",
+        refresh: "N"
+    );
+    
+}
+```
+
+https://github.com/tryhardy/tryhardy.params/assets/61752684/ffa219e4-0ceb-452d-9f34-d019edd8008a
+
+

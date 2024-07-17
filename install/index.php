@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Main\IO\File;
 use Bitrix\Main\Application;
 use Bitrix\Main\IO\Directory;
 use Bitrix\Main\Loader;
@@ -235,7 +236,7 @@ class tryhardy_params extends CModule
 					if (in_array($item, $this->excludeAdminFiles)) {
 						continue;
 					}
-					\Bitrix\Main\IO\File::deleteFile(
+					File::deleteFile(
 						"{$_SERVER['DOCUMENT_ROOT']}/bitrix/{$prefix}/" .
 						"{$this->MODULE_ID}_{$item}"
 					);
