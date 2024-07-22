@@ -85,23 +85,24 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
             'ATTR' => ' data-bx-comp-prop="true" data-bx-property-id=' . $name . ' ',
         ];
 
-	    switch ($element::class) {
-		    case (SelectField::class):
+	    switch ($element) {
+		    case $element instanceof SelectField:
 			    $template = 'select';
 			    $params['OPTIONS'] = $element->getOptions();
 			    break;
-		    case (TextareaField::class):
-                $template = 'textarea';
+		    case $element instanceof TextareaField:
+			    $template = 'textarea';
 			    break;
-		    case (CheckboxField::class):
+		    case $element instanceof CheckboxField:
 			    $isCheckbox = true;
 			    $template = 'checkbox';
 			    break;
-		    case (IblockField::class):
-			    $template = ($element->getIsSection() ? 'iblock.section' : 'iblock.element');
+		    case $element instanceof IblockField:
+			    $template = $element->getIsSection() ? 'iblock.section' : 'iblock.element';
 			    $params['IBLOCK_ID'] = $element->getIblockId();
 			    break;
-            case (GroupFields::class):
+            case $element instanceof GroupFields:?>
+                <?php
                 $groupFieldsData = $data[$element->getName()];
                 $hash = $element->getHash();
                 ?>
@@ -130,7 +131,8 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                                     if ($show) :
                                         if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
                                             $APPLICATION->RestartBuffer();
-                                            $n = $NUMBER;
+                                            //$n = $NUMBER;
+                                            $n = (int) $_REQUEST['NUMBER'];
                                         }
                                         if ((string) $_REQUEST['NAME']) $name = (string) $_REQUEST['NAME'];
                                         ?>
@@ -161,17 +163,18 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                             <?php endif;?>
                         </div>
                     </label>
-	                <?php if($element->isMultiple()):?>
-                        <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+"/>
-	                <?php endif;?>
+	                <?php if ($element->isMultiple()):?>
+                        <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+">
+	                <?endif;?>
                 </div>
                 <?php
 
 	            break;
-		    case (FileField::class):
+		    case $element instanceof FileField:
 			    $template = 'file';
 			    break;
-            default:
+		    default:
+			    break;
 	    }
         ?>
 
@@ -212,7 +215,7 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
 	        $APPLICATION->RestartBuffer();
 	        showCustomParamsBlock($ID, $object, [], $PROPERTY_ID, $NUMBER);
 	        die();
-        } ?>
+        }?>
 
         <?php if(is_array($arData) && count($arData) > 0):?>
             <?php $arData = array_values($arData);?>

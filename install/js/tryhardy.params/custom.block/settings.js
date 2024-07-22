@@ -182,6 +182,10 @@ class JsUniversalEditor
         var strUrl = '/bitrix/js/tryhardy.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
         var count = items.length;
 
+        console.log(parent);
+        console.log(wrapper);
+        console.log(items)
+
         BX.ajax.post(
             strUrl,
             {
