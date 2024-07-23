@@ -131,8 +131,7 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                                     if ($show) :
                                         if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
                                             $APPLICATION->RestartBuffer();
-                                            //$n = $NUMBER;
-                                            $n = (int) $_REQUEST['NUMBER'];
+                                            $n = $NUMBER;
                                         }
                                         if ((string) $_REQUEST['NAME']) $name = (string) $_REQUEST['NAME'];
                                         ?>
@@ -215,9 +214,10 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
 	        $APPLICATION->RestartBuffer();
 	        showCustomParamsBlock($ID, $object, [], $PROPERTY_ID, $NUMBER);
 	        die();
-        }?>
+        } ?>
 
-        <?php if(is_array($arData) && count($arData) > 0):?>
+        <?php
+        if(is_array($arData) && count($arData) > 0):?>
             <?php $arData = array_values($arData);?>
             <?php foreach($arData as $i => $data):?>
                 <?php
@@ -227,6 +227,9 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                 if (!empty($emptyArray)) {
 	                $NUMBER = $i;
 	                showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER);
+                }
+                else {
+                    showCustomParamsBlock($ID, $object, [], $PROPERTY_ID, $NUMBER);
                 }
                 ?>
             <?php endforeach;?>
