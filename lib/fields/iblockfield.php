@@ -6,13 +6,13 @@ class IblockField extends Field
 	protected bool $isSection = false;
 
 	public function __construct(
-		int $iblockId,
+		$iblockId,
 		string $name,
 		?string $placeholder = null
 	)
 	{
 		parent::__construct($name, $placeholder);
-		$this->iblockId = $iblockId;
+		$this->iblockId = (int) $iblockId;
 		return $this;
 	}
 
