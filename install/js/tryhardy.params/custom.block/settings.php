@@ -229,6 +229,7 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
 	                showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, $NUMBER);
                 }
                 else {
+	                $NUMBER = $i;
                     showCustomParamsBlock($ID, $object, [], $PROPERTY_ID, $NUMBER);
                 }
                 ?>
