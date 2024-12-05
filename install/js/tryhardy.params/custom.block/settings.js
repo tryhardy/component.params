@@ -11,6 +11,7 @@ class JsUniversalEditor
         this.itemsClass = '.items' + arParams.oInput.id;
         this.hiddenInputClass = '.input' + arParams.oInput.id;
         this.moreButtonClass = '.more-btn' + arParams.oInput.id;
+        this.removeButtonClass = '.remove-btn' + arParams.oInput.id;
 
         this.arParams = arParams;
         this.jsOptions = this.arParams.data.length > 0 ? JSON.parse(this.arParams.data) : '';
@@ -41,6 +42,8 @@ class JsUniversalEditor
 
                     // Вешаем копирование на кнопку добавления элемента
                     $this.__bindCloning(parent);
+
+                    $this.__bindRemove(parent);
                 }
 
             }
@@ -155,6 +158,33 @@ class JsUniversalEditor
     }
 
     /**
+     * Событие на кнопку "Удалить элемент"
+     * @private
+     */
+    __bindRemove()
+    {
+        var $this = this;
+        var parent = $this.arParams.oCont;
+        let btn = parent.querySelectorAll(this.removeButtonClass);
+
+        if (btn.length > 0) {
+            for (let i = 0; i < btn.length; i++) {
+
+                if (!btn[i].dataset.group) {
+                    btn[i].onclick = function (e) {
+                        $this.__removeItem(btn[i]);
+                    }
+                }
+                else {
+                    btn[i].onclick = function (e) {
+                        //$this.__addGroupItem(moreBtn[i]);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * @param item
      * @private
      */
@@ -219,6 +249,7 @@ class JsUniversalEditor
 
                 $this.__bindEventsOnInput($this.arParams.oCont);
                 $this.__bindCloning();
+                $this.__bindRemove();
             }
         )
     }
@@ -265,7 +296,24 @@ class JsUniversalEditor
                 parent.appendChild(currentData);
                 $this.__bindEventsOnInput($this.arParams.oCont);
                 $this.__bindCloning();
+                $this.__bindRemove();
             }
         )
+    }
+
+    /**
+     * Функция клонирования элементов
+     * @param item
+     * @private
+     */
+    __removeItem = function(button)
+    {
+        var parent = button.closest(this.itemClass);
+        var $this = this;
+        var arParams = this.arParams;
+
+        if (parent) {
+            parent.remove();
+        }
     }
 }

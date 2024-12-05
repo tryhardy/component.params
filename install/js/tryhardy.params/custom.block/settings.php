@@ -65,142 +65,145 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
 
     <div class="customblock-block-outer outer<?=$ID?>" data-child="<?php if(!$parent):?>true<?php else:?>false<?php endif?>">
 
-    <?php foreach($object as $element) {
-        $isRecursive = $element instanceof GroupFields;
-        $isCheckbox = false;
-        $template = '';
+        <?php foreach($object as $element) {
+            $isRecursive = $element instanceof GroupFields;
+            $isCheckbox = false;
+            $template = '';
 
-        if (!$NAME) {
-            $name = $PROPERTY_ID . '[' . $NUMBER . ']' . '[' . $element->getName() . ']';
-        }
-        else {
-            $name = $NAME . '[' . $NUMBER . ']' . '[' . $element->getName() . ']';
-        }
+            if (!$NAME) {
+                $name = $PROPERTY_ID . '[' . $NUMBER . ']' . '[' . $element->getName() . ']';
+            }
+            else {
+                $name = $NAME . '[' . $NUMBER . ']' . '[' . $element->getName() . ']';
+            }
 
-        $params = [
-            'EDIT_MODE' => 'Y',
-            'VALUE' => $data[$element->getName()] ?: '',
-            'NAME' => $name,
-            'PLACEHOLDER' => $element->getPlaceholder(),
-            'ATTR' => ' data-bx-comp-prop="true" data-bx-property-id=' . $name . ' ',
-        ];
+            $params = [
+                'EDIT_MODE' => 'Y',
+                'VALUE' => $data[$element->getName()] ?: '',
+                'NAME' => $name,
+                'PLACEHOLDER' => $element->getPlaceholder(),
+                'ATTR' => ' data-bx-comp-prop="true" data-bx-property-id=' . $name . ' ',
+            ];
 
-	    switch ($element) {
-		    case $element instanceof SelectField:
-			    $template = 'select';
-			    $params['OPTIONS'] = $element->getOptions();
-			    break;
-		    case $element instanceof TextareaField:
-			    $template = 'textarea';
-			    break;
-		    case $element instanceof CheckboxField:
-			    $isCheckbox = true;
-			    $template = 'checkbox';
-			    break;
-		    case $element instanceof IblockField:
-			    $template = $element->getIsSection() ? 'iblock.section' : 'iblock.element';
-			    $params['IBLOCK_ID'] = $element->getIblockId();
-			    break;
-            case $element instanceof GroupFields:?>
-                <?php
-                $groupFieldsData = $data[$element->getName()];
-                $hash = $element->getHash();
-                ?>
-                <div class="group-fields" data-parent="<?=$hash?>" data-name="<?=$name?>">
-                    <label class="group-fields__label customblock-block-label">
-	                    <?php if($element->getLabel()):?>
-                            <p style="margin-bottom: 15px;font-size: 18px;"><?=$element->getLabel()?></p>
-                        <?php endif;?>
-                        <div class="group-fields__wrapper">
-                            <?php
-                            $n = 0;
-                            if(is_array($groupFieldsData) && count($groupFieldsData) > 0):?>
-                                <?php foreach($groupFieldsData as $groupData):?>
-                                    <?php
-                                    $show = true;
-                                    if (!empty($groupData) && count($groupFieldsData) > 1) {
-	                                    $emptyArray = array_filter($groupData, function ($value) {
-		                                    return ($value !== null && $value !== '');
-	                                    });
-
-	                                    if (empty($emptyArray)) {
-		                                    $show = false;
-	                                    }
-                                    }
-
-                                    if ($show) :
-                                        if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
-                                            $APPLICATION->RestartBuffer();
-                                            $n = $NUMBER;
-                                        }
-                                        if ((string) $_REQUEST['NAME']) $name = (string) $_REQUEST['NAME'];
-                                        ?>
-                                        <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
-                                            <?php
-                                            showCustomParamsBlock($ID, $element->getFields(), $groupData, $PROPERTY_ID, $n, $name, false);
-                                            if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) die();
-                                            $n++;
-                                            ?>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endforeach;?>
-                            <?php elseif (!$groupFieldsData || $_REQUEST['ACTION'] == 'clone'):?>
-                                <?php
-	                            if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
-		                            $APPLICATION->RestartBuffer();
-		                            $n = $NUMBER;
-	                            }
-	                            if ((string) $_REQUEST['NAME']) $name = (string) $_REQUEST['NAME'];
-                                ?>
-                                <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
-		                            <?php
-		                            showCustomParamsBlock($ID, $element->getFields(), [], $PROPERTY_ID, $n, $name, false);
-		                            if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) die();
-		                            $n++;
-		                            ?>
-                                </div>
+            switch ($element) {
+                case $element instanceof SelectField:
+                    $template = 'select';
+                    $params['OPTIONS'] = $element->getOptions();
+                    break;
+                case $element instanceof TextareaField:
+                    $template = 'textarea';
+                    break;
+                case $element instanceof CheckboxField:
+                    $isCheckbox = true;
+                    $template = 'checkbox';
+                    break;
+                case $element instanceof IblockField:
+                    $template = $element->getIsSection() ? 'iblock.section' : 'iblock.element';
+                    $params['IBLOCK_ID'] = $element->getIblockId();
+                    break;
+                case $element instanceof GroupFields:?>
+                    <?php
+                    $groupFieldsData = $data[$element->getName()];
+                    $hash = $element->getHash();
+                    ?>
+                    <div class="group-fields" data-parent="<?=$hash?>" data-name="<?=$name?>">
+                        <label class="group-fields__label customblock-block-label">
+                            <?php if($element->getLabel()):?>
+                                <p style="margin-bottom: 15px;font-size: 18px;"><?=$element->getLabel()?></p>
                             <?php endif;?>
-                        </div>
-                    </label>
-	                <?php if ($element->isMultiple()):?>
-                        <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+">
-	                <?endif;?>
-                </div>
+                            <div class="group-fields__wrapper">
+                                <?php
+                                $n = 0;
+                                if(is_array($groupFieldsData) && count($groupFieldsData) > 0):?>
+                                    <?php foreach($groupFieldsData as $groupData):?>
+                                        <?php
+                                        $show = true;
+                                        if (!empty($groupData) && count($groupFieldsData) > 1) {
+                                            $emptyArray = array_filter($groupData, function ($value) {
+                                                return ($value !== null && $value !== '');
+                                            });
+
+                                            if (empty($emptyArray)) {
+                                                $show = false;
+                                            }
+                                        }
+
+                                        if ($show) :
+                                            if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
+                                                $APPLICATION->RestartBuffer();
+                                                $n = $NUMBER;
+                                            }
+                                            if ((string) $_REQUEST['NAME']) $name = (string) $_REQUEST['NAME'];
+                                            ?>
+                                            <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
+                                                <?php
+                                                showCustomParamsBlock($ID, $element->getFields(), $groupData, $PROPERTY_ID, $n, $name, false);
+                                                if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) die();
+                                                $n++;
+                                                ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endforeach;?>
+                                <?php elseif (!$groupFieldsData || $_REQUEST['ACTION'] == 'clone'):?>
+                                    <?php
+                                    if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) {
+                                        $APPLICATION->RestartBuffer();
+                                        $n = $NUMBER;
+                                    }
+                                    if ((string) $_REQUEST['NAME']) $name = (string) $_REQUEST['NAME'];
+                                    ?>
+                                    <div class="group-fields__item group-fields__item<?=$hash?>" data-name="<?=$hash?>">
+                                        <?php
+                                        showCustomParamsBlock($ID, $element->getFields(), [], $PROPERTY_ID, $n, $name, false);
+                                        if ($_REQUEST['ACTION'] == 'clone_group' && $hash == $_REQUEST['HASH']) die();
+                                        $n++;
+                                        ?>
+                                    </div>
+                                <?php endif;?>
+                            </div>
+                        </label>
+                        <?php if ($element->isMultiple()):?>
+                            <input type="button" data-group="true" class="more-btn more-btn<?=$ID?>" value="+">
+                        <?endif;?>
+                    </div>
+                    <?php
+
+                    break;
+                case $element instanceof FileField:
+                    $template = 'file';
+                    break;
+                default:
+                    break;
+            }
+            ?>
+
+            <?php if (!$isRecursive):?>
+                <label class="customblock-block-label <?=($isCheckbox ? "customblock-block-checkbox" : "")?>">
+
+                <?php if($element->getLabel() && !$isCheckbox):?>
+                    <p><?=$element->getLabel()?></p>
+                <?php endif;?>
+
+                <?php $APPLICATION->IncludeComponent(
+                    'tryhardy.params:field.widget',
+                    $template,
+                    $params
+                ); ?>
+
                 <?php
+                if($element->getLabel() && $isCheckbox):?>
+                    <p style="margin-left:10px;"><?=$element->getLabel()?></p>
+                <?php endif;?>
 
-	            break;
-		    case $element instanceof FileField:
-			    $template = 'file';
-			    break;
-		    default:
-			    break;
-	    }
-        ?>
-
-        <?php if (!$isRecursive):?>
-            <label class="customblock-block-label <?=($isCheckbox ? "customblock-block-checkbox" : "")?>">
-
-		    <?php if($element->getLabel() && !$isCheckbox):?>
-                <p><?=$element->getLabel()?></p>
-		    <?php endif;?>
-
-            <?php $APPLICATION->IncludeComponent(
-                'tryhardy.params:field.widget',
-                $template,
-                $params
-            ); ?>
-
-            <?php
-            if($element->getLabel() && $isCheckbox):?>
-                <p style="margin-left:10px;"><?=$element->getLabel()?></p>
+                </label>
             <?php endif;?>
 
-            </label>
-        <?php endif;?>
+            <?php
+        }
+        ?>
 
-        <?php
-    }
-    ?>
+        <input type="button" class="remove-btn remove-btn<?=$ID?>" value="-">
+
     </div>
     <?php
 }
