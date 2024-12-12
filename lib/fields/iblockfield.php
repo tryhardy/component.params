@@ -1,5 +1,5 @@
 <?php
-namespace Tryhardy\Params\Fields;
+namespace Component\Params\Fields;
 class IblockField extends Field
 {
 	protected int $iblockId;

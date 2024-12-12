@@ -1,5 +1,5 @@
 <?php
-namespace Tryhardy\Params\Fields;
+namespace Component\Params\Fields;
 class FileField extends Field
 {
 }

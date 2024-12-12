@@ -1,6 +1,6 @@
 <?php
 
-use Tryhardy\Params\Helpers\ComponentParams;
+use Component\Params\Helpers\ComponentParams;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
 	die();

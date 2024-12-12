@@ -1,13 +1,13 @@
 <?php
 
-namespace Tryhardy\Params\Module;
+namespace Component\Params\Module;
 
 
 use Bitrix\Main\Web\Uri;
 use CAdminTabControl;
 use CControllerClient;
 use Exception;
-use Tryhardy\Params\Common\Constants;
+use Component\Params\Common\Constants;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Application;
 use Bitrix\Main\Localization\Loc;
