@@ -11,7 +11,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
 Loc::loadMessages(__FILE__);
 
-class tryhardy_params extends CModule
+class component_params extends CModule
 {
 	public $MODULE_ID = "component.params";
 	public $MODULE_GROUP_RIGHTS = "Y";
