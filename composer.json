@@ -1,5 +1,5 @@
 {
-  "name": "tryhardy/tryhardy.params",
+  "name": "tryhardy/component.params",
   "description": "bitrix module for extending components params",
   "type": "bitrix-module",
   "license": "MIT",
