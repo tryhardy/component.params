@@ -35,7 +35,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('component.params')) {
     //Заводим пустую коллекцию полей (в нее будем добавлять селекты, инпуты, радиобаттоны и т.д.)
     $сollection = new Fields\FieldsCollection();
         
@@ -60,7 +60,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
-https://github.com/tryhardy/tryhardy.params/assets/61752684/6664d787-f0ec-4454-896c-219f1ac75bde
+https://github.com/tryhardy/component.params/assets/61752684/6664d787-f0ec-4454-896c-219f1ac75bde
 
 
 
@@ -77,7 +77,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('component.params')) {
     //Заводим пустую коллекцию полей (в нее будем добавлять селекты, инпуты, радиобаттоны и т.д.)
     $сollection = new Fields\FieldsCollection();
     
@@ -117,7 +117,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 ?>
 ```
 
-https://github.com/tryhardy/tryhardy.params/assets/61752684/984bf5db-dd94-4105-a965-25209b1b1095
+https://github.com/tryhardy/component.params/assets/61752684/984bf5db-dd94-4105-a965-25209b1b1095
 
 ### <a id='t5'>Вывод \<textarea></a>
 ```php
@@ -131,7 +131,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection = new Fields\FieldsCollection();
     
     //<textarea name="description"></textarea>
@@ -155,7 +155,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-https://github.com/tryhardy/tryhardy.params/assets/61752684/96af982d-0912-4d5c-a3ad-ca33a3edbf2f
+https://github.com/tryhardy/component.params/assets/61752684/96af982d-0912-4d5c-a3ad-ca33a3edbf2f
 
 
 ### <a id='t6'>Вывод диалогового окна с выбором элемента инфоблока (по ID)</a>
@@ -170,7 +170,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection = new Fields\FieldsCollection();
     
     $field = (new Fields\IblockField(iblockId: 10, name: "element"))->setLabel("Элемент инфоблока");
@@ -204,7 +204,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection = new Fields\FieldsCollection();
     
     $field = (new Fields\IblockField(iblockId: 10, name: "section"))->setLabel("Раздел инфоблока")->setIsSection();
@@ -238,7 +238,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection = new Fields\FieldsCollection();
     
     $field = (new Fields\CheckboxField(name: "agreement"))
@@ -261,7 +261,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
     
 }
 ```
-https://github.com/tryhardy/tryhardy.params/assets/61752684/02e3a90d-0db2-49bf-9367-c0683a358f83
+https://github.com/tryhardy/component.params/assets/61752684/02e3a90d-0db2-49bf-9367-c0683a358f83
 
 
 
@@ -277,7 +277,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection = new Fields\FieldsCollection();
     
     $field1 = (new Fields\FileField(name: "image_desc"))->setLabel("Изображение для таба (Desc)");
@@ -302,7 +302,7 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-https://github.com/tryhardy/tryhardy.params/assets/61752684/92a952ea-e88a-422e-98d2-852beb5aca98
+https://github.com/tryhardy/component.params/assets/61752684/92a952ea-e88a-422e-98d2-852beb5aca98
 
 
 
@@ -319,7 +319,7 @@ use \Tryhardy\Params\Fields;
  * @var     array    $arResult
  */
 
-if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
+if (\Bitrix\Main\Loader::includeModule('component.params')) {
 
     //Создаем пустую коллекцию полей
     $сollection = new FieldsCollection();
@@ -355,6 +355,6 @@ if (\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
 }
 ```
 
-https://github.com/tryhardy/tryhardy.params/assets/61752684/ffa219e4-0ceb-452d-9f34-d019edd8008a
+https://github.com/tryhardy/component.params/assets/61752684/ffa219e4-0ceb-452d-9f34-d019edd8008a
 
 

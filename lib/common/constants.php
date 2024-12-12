@@ -4,5 +4,5 @@ namespace Tryhardy\Params\Common;
 
 class Constants
 {
-	const MODULE_ID = "tryhardy.params";
+	const MODULE_ID = "component.params";
 }

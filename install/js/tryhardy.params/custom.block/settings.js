@@ -17,7 +17,7 @@ class JsUniversalEditor
         this.jsOptions = this.arParams.data.length > 0 ? JSON.parse(this.arParams.data) : '';
 
         var $this = this;
-        var strUrl = '/bitrix/js/tryhardy.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
+        var strUrl = '/bitrix/js/component.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
 
         BX.ajax.post(
             strUrl,
@@ -209,7 +209,7 @@ class JsUniversalEditor
         var items = parent.querySelectorAll("[data-name='" + hash + "']");
         var $this = this;
         var arParams = this.arParams;
-        var strUrl = '/bitrix/js/tryhardy.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
+        var strUrl = '/bitrix/js/component.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
         var count = items.length;
 
         console.log(parent);
@@ -264,7 +264,7 @@ class JsUniversalEditor
         var parent = this.arParams.oCont.querySelector(this.itemsClass);
         var $this = this;
         var arParams = this.arParams;
-        var strUrl = '/bitrix/js/tryhardy.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
+        var strUrl = '/bitrix/js/component.params/custom.block/settings.php' + '?lang=' + this.jsOptions[0];
         var count = this.arParams.items.length;
 
         BX.ajax.post(
