@@ -26,7 +26,7 @@
 ```php
 <?php
 //в файле .parameters.php шаблона компонента
-use \Tryhardy\Params\Fields;
+use \Component\Params\Fields;
 
 /**
  * @global  CMain    $APPLICATION
@@ -45,7 +45,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection->add($simpleInputField);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
-    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+    \Component\Params\Helpers\ComponentParams::setCustomParams(
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
@@ -68,7 +68,7 @@ https://github.com/tryhardy/component.params/assets/61752684/6664d787-f0ec-4454-
 ```php
 <?php
 //в файле .parameters.php шаблона компонента
-use \Tryhardy\Params\Fields;
+use \Component\Params\Fields;
 
 /**
  * @global  CMain    $APPLICATION
@@ -102,7 +102,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection->add($selectField);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
-    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+    \Component\Params\Helpers\ComponentParams::setCustomParams(
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
@@ -122,7 +122,7 @@ https://github.com/tryhardy/component.params/assets/61752684/984bf5db-dd94-4105-
 ### <a id='t5'>Вывод \<textarea></a>
 ```php
 //в файле .parameters.php шаблона компонента
-use \Tryhardy\Params\Fields;
+use \Component\Params\Fields;
 
 /**
  * @global  CMain    $APPLICATION
@@ -141,7 +141,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection->add($textareaField);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
-    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+    \Component\Params\Helpers\ComponentParams::setCustomParams(
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
@@ -161,7 +161,7 @@ https://github.com/tryhardy/component.params/assets/61752684/96af982d-0912-4d5c-
 ### <a id='t6'>Вывод диалогового окна с выбором элемента инфоблока (по ID)</a>
 ```php
 //в файле .parameters.php шаблона компонента
-use \Tryhardy\Params\Fields;
+use \Component\Params\Fields;
 
 /**
  * @global  CMain    $APPLICATION
@@ -178,7 +178,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection->add($field);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
-    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+    \Component\Params\Helpers\ComponentParams::setCustomParams(
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
@@ -195,7 +195,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
 ### <a id='t7'>Вывод диалогового окна с выбором выбора раздела инфоблока (по ID)</a>
 ```php
 //в файле .parameters.php шаблона компонента
-use \Tryhardy\Params\Fields;
+use \Component\Params\Fields;
 
 /**
  * @global  CMain    $APPLICATION
@@ -212,7 +212,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection->add($field);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
-    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+    \Component\Params\Helpers\ComponentParams::setCustomParams(
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
@@ -229,7 +229,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
 ### <a id='t8'>Вывод \<input type="checkbox"></a>
 ```php
 //в файле .parameters.php шаблона компонента
-use \Tryhardy\Params\Fields;
+use \Component\Params\Fields;
 
 /**
  * @global  CMain    $APPLICATION
@@ -248,7 +248,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection->add($field);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
-    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+    \Component\Params\Helpers\ComponentParams::setCustomParams(
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
@@ -268,7 +268,7 @@ https://github.com/tryhardy/component.params/assets/61752684/02e3a90d-0db2-49bf-
 ### <a id='t9'>Вывод диалогового окна с выбором файла</a>
 ```php
 //в файле .parameters.php шаблона компонента
-use \Tryhardy\Params\Fields;
+use \Component\Params\Fields;
 
 /**
  * @global  CMain    $APPLICATION
@@ -288,7 +288,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
     $сollection->add($field3);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
-    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+    \Component\Params\Helpers\ComponentParams::setCustomParams(
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,
@@ -310,7 +310,7 @@ https://github.com/tryhardy/component.params/assets/61752684/92a952ea-e88a-422e-
 ### <a id='t10'>Вывод вложенных групп полей</a>
 ```php
 //в файле .parameters.php шаблона компонента
-use \Tryhardy\Params\Fields;
+use \Component\Params\Fields;
 
 /**
  * @global  CMain    $APPLICATION
@@ -341,7 +341,7 @@ if (\Bitrix\Main\Loader::includeModule('component.params')) {
 	$сollection->add($groupField);
     
     //Добавляем получившуюся коллекцию полей в параметры компонента
-    \Tryhardy\Params\Helpers\ComponentParams::setCustomParams(
+    \Component\Params\Helpers\ComponentParams::setCustomParams(
         $arTemplateParameters,
         $arCurrentValues,
         fieldsCollection: $сollection,

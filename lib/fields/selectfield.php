@@ -1,5 +1,5 @@
 <?php
-namespace Tryhardy\Params\Fields;
+namespace Component\Params\Fields;
 class SelectField extends Field
 {
 	protected string $entity = SelectOptionCollection::class;

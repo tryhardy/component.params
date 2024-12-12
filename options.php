@@ -1,6 +1,6 @@
 <?php
 use Bitrix\Main\Loader;
-use Tryhardy\Params\Common\Constants;
+use Component\Params\Common\Constants;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 
@@ -11,7 +11,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 $module_id = "component.params";
 Loader::includeModule($module_id);
 
-$options = new Tryhardy\Params\Module\Options(__FILE__, [
+$options = new Component\Params\Module\Options(__FILE__, [
 	[
 		"DIV"     => "common",
 		"TAB"     => "Настройки",

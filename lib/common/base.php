@@ -1,6 +1,6 @@
 <?php
 
-namespace Tryhardy\Params\Common;
+namespace Component\Params\Common;
 
 use ReflectionException;
 use ReflectionObject;

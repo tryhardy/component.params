@@ -1,11 +1,11 @@
 <?php
 
-namespace Tryhardy\Params\Helpers;
+namespace Component\Params\Helpers;
 
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\Service\GeoIp\Manager;
-use Tryhardy\Params\Fields\FieldsCollection;
+use Component\Params\Fields\FieldsCollection;
 
 /**
  * Помогает cформировать массив параметров

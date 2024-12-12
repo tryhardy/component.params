@@ -75,7 +75,7 @@ class tryhardy_params extends CModule
 		Loader::includeModule($this->MODULE_ID);
 
 		foreach ($this->entityList as $entity) {
-			$entityClass = "\\Tryhardy\Params\\{$entity}\{$entity}Table";
+			$entityClass = "\\Component\Params\\{$entity}\{$entity}Table";
 			if (is_callable([$entityClass, "install"])) {
 				$entityClass::install();
 			}
@@ -87,7 +87,7 @@ class tryhardy_params extends CModule
 		Loader::includeModule($this->MODULE_ID);
 
 		foreach ($this->entityList as $entity) {
-			$entityClass = "\\Tryhardy\Params\\{$entity}\{$entity}Table";
+			$entityClass = "\\Component\Params\\{$entity}\{$entity}Table";
 			if (is_callable([$entityClass, "unInstall"])) {
 				$entityClass::unInstall();
 			}

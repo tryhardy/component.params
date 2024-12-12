@@ -1,12 +1,12 @@
 <?php
-use Tryhardy\Params\Common\Constants;
-use Tryhardy\Params\Fields\CheckboxField;
-use Tryhardy\Params\Fields\FieldsCollection;
-use Tryhardy\Params\Fields\FileField;
-use Tryhardy\Params\Fields\GroupFields;
-use Tryhardy\Params\Fields\IblockField;
-use Tryhardy\Params\Fields\SelectField;
-use Tryhardy\Params\Fields\TextareaField;
+use Component\Params\Common\Constants;
+use Component\Params\Fields\CheckboxField;
+use Component\Params\Fields\FieldsCollection;
+use Component\Params\Fields\FileField;
+use Component\Params\Fields\GroupFields;
+use Component\Params\Fields\IblockField;
+use Component\Params\Fields\SelectField;
+use Component\Params\Fields\TextareaField;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_before.php");
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_admin_js.php");

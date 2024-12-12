@@ -1,6 +1,6 @@
 <?php
 
-namespace Tryhardy\Params\Fields;
+namespace Component\Params\Fields;
 
 /**
  * Класс для работы с Группой полей

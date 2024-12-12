@@ -1,10 +1,10 @@
 <?php
 
-namespace Tryhardy\Params\Module;
+namespace Component\Params\Module;
 
 use CMain;
 use CUser;
-use Tryhardy\Params\Common\Constants;
+use Component\Params\Common\Constants;
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 

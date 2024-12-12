@@ -1,8 +1,8 @@
 <?php
 
-namespace Tryhardy\Params\Common\Interfaces;
+namespace Component\Params\Common\Interfaces;
 
-use Tryhardy\Params\Common\Collection;
+use Component\Params\Common\Collection;
 
 interface CollectionContainerInterface
 {

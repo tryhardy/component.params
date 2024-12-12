@@ -1,7 +1,7 @@
 <?php
-namespace Tryhardy\Params\Fields;
+namespace Component\Params\Fields;
 
-use Tryhardy\Params\Common\CollectionContainer;
+use Component\Params\Common\CollectionContainer;
 
 class Field extends CollectionContainer
 {

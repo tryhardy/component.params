@@ -1,9 +1,9 @@
 <?php
 
-namespace Tryhardy\Params\Common;
+namespace Component\Params\Common;
 
 use Exception;
-use Tryhardy\Params\Common\Interfaces\CollectionContainerInterface;
+use Component\Params\Common\Interfaces\CollectionContainerInterface;
 
 abstract class CollectionContainer extends Base implements CollectionContainerInterface
 {

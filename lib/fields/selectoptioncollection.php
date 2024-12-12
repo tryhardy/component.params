@@ -1,8 +1,8 @@
 <?php
 
-namespace Tryhardy\Params\Fields;
+namespace Component\Params\Fields;
 
-use Tryhardy\Params\Common\Collection;
+use Component\Params\Common\Collection;
 
 /**
  * collection of options for select field in twig form
