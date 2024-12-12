@@ -13,7 +13,7 @@ Loc::loadMessages(__FILE__);
 
 class tryhardy_params extends CModule
 {
-	public $MODULE_ID = "tryhardy.params";
+	public $MODULE_ID = "component.params";
 	public $MODULE_GROUP_RIGHTS = "Y";
 	public $MODULE_NAME;
 	public $MODULE_DESCRIPTION;

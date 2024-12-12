@@ -20,8 +20,8 @@ $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 if (!check_bitrix_sessid())  die('Wrong sessid');
 if (!$request->isAjaxRequest()) die('Only for ajax requests');
 if (!$_REQUEST['ID']) die('Wrong ID');
-if (!\Bitrix\Main\Loader::includeModule('tryhardy.params')) {
-    die('Module "tryhardy.params" is not installed');
+if (!\Bitrix\Main\Loader::includeModule('component.params')) {
+    die('Module "component.params" is not installed');
 }
 
 $PROPERTY_ID = (string) $_REQUEST['PROPERTY_ID'];
@@ -185,7 +185,7 @@ function showCustomParamsBlock($ID, $object, $data, $PROPERTY_ID, int $NUMBER = 
                 <?php endif;?>
 
                 <?php $APPLICATION->IncludeComponent(
-                    'tryhardy.params:field.widget',
+                    'component.params:field.widget',
                     $template,
                     $params
                 ); ?>

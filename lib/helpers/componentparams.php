@@ -13,7 +13,7 @@ use Tryhardy\Params\Fields\FieldsCollection;
  */
 class ComponentParams
 {
-	const PATH_TO_JS = '/bitrix/js/tryhardy.params/custom.block/settings.js';
+	const PATH_TO_JS = '/bitrix/js/component.params/custom.block/settings.js';
 
 	/**
 	 * Устанавливает кастомный блок параметров
